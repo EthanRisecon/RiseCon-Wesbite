@@ -619,7 +619,7 @@ export const FEATURED = MODELS.filter((m) => m.featured).slice(0, 6);
 
 export const bySlug = (slug) => MODELS.find((m) => m.slug === slug) || null;
 
-export const modelHref = (slug) => `./ADU Model.dc.html?model=${slug}`;
+export const modelHref = (slug) => `./adu-model.dc.html?model=${slug}`;
 
 /* ── PRICING ────────────────────────────────────────────────────────────────
    One rate drives every price on the site. Prices are derived from each plan's

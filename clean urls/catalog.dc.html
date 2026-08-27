@@ -43,7 +43,7 @@
       <img src="./assets/risecon-logo.png" alt="RiseCon" style="{{ logoImgStyle }}"/>
     </a>
     <div style="display:flex; align-items:center; gap:14px;">
-      <a href="./Contact.dc.html" onMouseEnter="{{ onNavCtaEnter }}" onMouseLeave="{{ onNavCtaLeave }}" style="{{ navCtaStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Free Estimate</a>
+      <a href="./contact.dc.html" onMouseEnter="{{ onNavCtaEnter }}" onMouseLeave="{{ onNavCtaLeave }}" style="{{ navCtaStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Free Estimate</a>
       <button aria-label="{{ menuButtonLabel }}" aria-expanded="{{ menuOpen }}" onClick="{{ toggleMenu }}" onMouseEnter="{{ onBurgerEnter }}" onMouseLeave="{{ onBurgerLeave }}" style="{{ hamburgerStyle }}" style-focus="{{ btnFocusStyle }}">
         <span style="{{ burgerBarTopStyle }}"></span>
         <span style="{{ burgerBarMidStyle }}"></span>
@@ -114,10 +114,10 @@
       <div style="{{ footerColStyle }}">
         <h6 style="{{ footerHeadingStyle }}">Navigate</h6>
         <a href="./index.dc.html" style="{{ footerLinkStyle }}">Home</a>
-        <a href="./Services.dc.html" style="{{ footerLinkStyle }}">Services</a>
-        <a href="./ADU Models.dc.html" style="{{ footerLinkStyle }}">ADU Models</a>
-        <a href="./About.dc.html" style="{{ footerLinkStyle }}">About</a>
-        <a href="./Contact.dc.html" style="{{ footerLinkStyle }}">Contact</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">Services</a>
+        <a href="./adu-models.dc.html" style="{{ footerLinkStyle }}">ADU Models</a>
+        <a href="./about.dc.html" style="{{ footerLinkStyle }}">About</a>
+        <a href="./contact.dc.html" style="{{ footerLinkStyle }}">Contact</a>
       </div>
       <div style="{{ footerColStyle }}">
         <h6 style="{{ footerHeadingStyle }}">Contact</h6>
@@ -218,11 +218,11 @@ class Component extends DCLogic {
     const currentPage = 'Catalog';
     const navItems = [
       { label: 'Home', href: './index.dc.html' },
-      { label: 'Services', href: './Services.dc.html' },
-      { label: 'ADU Models', href: './ADU Models.dc.html' },
-      { label: 'Catalog', href: './Catalog.dc.html' },
-      { label: 'About', href: './About.dc.html' },
-      { label: 'Contact', href: './Contact.dc.html' }
+      { label: 'Services', href: './services.dc.html' },
+      { label: 'ADU Models', href: './adu-models.dc.html' },
+      { label: 'Catalog', href: './catalog.dc.html' },
+      { label: 'About', href: './about.dc.html' },
+      { label: 'Contact', href: './contact.dc.html' }
     ].map((it, i) => {
       const active = it.label === currentPage;
       const hov = this.state.hoveredNav === i;
