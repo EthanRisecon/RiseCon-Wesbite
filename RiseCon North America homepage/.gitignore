@@ -1,0 +1,5 @@
+uploads/
+.bundles/
+_ds/
+.DS_Store
+.vercel
