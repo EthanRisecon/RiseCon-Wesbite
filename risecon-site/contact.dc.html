@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Free Construction Estimate | RiseCon</title>
+  <meta name="description" content="Request a free estimate from RiseCon, a Northern California general contractor building ADUs, remodels, and custom homes.">
+  <link rel="stylesheet" href="./site.css">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <style>
+    :root {
+      --color-bg: #05080C; --color-surface: #111820; --color-text: #F4F5F6;
+      --color-accent: #C99A24; --color-accent-2: #B8BEC6;
+      --color-divider: color-mix(in srgb, #B8BEC6 16%, transparent);
+    }
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    a { text-decoration: none; }
+    a:hover { color: #E0B43D; }
+    @keyframes riseFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes riseFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes riseLineUp { from { transform: translateY(105%); } to { transform: translateY(0); } }
+    @keyframes starRowGleam { 0%, 10% { transform: translateX(-40%) skewX(-18deg); opacity: 0; } 17% { opacity: 1; } 70% { opacity: 1; } 80%, 100% { transform: translateX(560%) skewX(-18deg); opacity: 0; } }
+  </style>
+</helmet>
+
+<div style="{{ pageStyle }}">
+
+  <nav style="{{ navStyle }}" aria-label="Primary">
+    <a href="./index.dc.html" aria-label="RiseCon home" onMouseEnter="{{ onLogoEnter }}" onMouseLeave="{{ onLogoLeave }}" style="{{ logoLinkStyle }}">
+      <img src="./assets/risecon-logo.png" alt="RiseCon" style="{{ logoImgStyle }}"/>
+    </a>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <a href="tel:19163787878" onMouseEnter="{{ onNavCtaEnter }}" onMouseLeave="{{ onNavCtaLeave }}" style="{{ navPhoneStyle }}" style-focus="{{ btnFocusStyle }}"><i class="ph ph-phone" style="font-size:15px;"></i> (916) 378-7878</a>
+      <button aria-label="{{ menuButtonLabel }}" aria-expanded="{{ menuOpen }}" onClick="{{ toggleMenu }}" onMouseEnter="{{ onBurgerEnter }}" onMouseLeave="{{ onBurgerLeave }}" style="{{ hamburgerStyle }}" style-focus="{{ btnFocusStyle }}">
+        <span style="{{ burgerBarTopStyle }}"></span>
+        <span style="{{ burgerBarMidStyle }}"></span>
+        <span style="{{ burgerBarBotStyle }}"></span>
+      </button>
+    </div>
+  </nav>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ menuBackdropStyle }}" onClick="{{ closeMenu }}">
+      <div style="{{ menuPanelStyle }}" onClick="{{ stopPropagation }}">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+          <a href="{{ item.href }}" onClick="{{ closeMenu }}" onMouseEnter="{{ item.onEnter }}" onMouseLeave="{{ item.onLeave }}" style="{{ item.linkStyle }}"><span style="{{ item.markStyle }}"></span>{{ item.label }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <section style="{{ heroSectionStyle }}">
+    <div style="{{ heroBgStyle }}"></div>
+    <div style="{{ heroTintStyle }}"></div>
+    <div style="{{ splitStyle }}">
+
+      <div style="{{ leftColStyle }}">
+        <h6 style="{{ kickerStyle }}">Let&rsquo;s Talk About Your Project</h6>
+        <h1 style="{{ titleStyle }}">
+          <span style="{{ lineMaskStyle }}"><span style="{{ line1Style }}">Get Your Free Estimate</span></span>
+        </h1>
+        <p style="{{ subStyle }}">Tell us what you&rsquo;re planning and a member of the RiseCon team will be in touch shortly.</p>
+
+        <div style="{{ reviewRowStyle }}">
+          <img src="./assets/google-logo.png" alt="Google" style="{{ googleLogoStyle }}"/>
+          <div style="{{ starsRowStyle }}">
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+              <defs>
+                <linearGradient id="starMetal" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#6D4B0C"/>
+                  <stop offset="20%" stop-color="#B78319"/>
+                  <stop offset="42%" stop-color="#F1D06A"/>
+                  <stop offset="50%" stop-color="#FFF0A6"/>
+                  <stop offset="58%" stop-color="#D5A32A"/>
+                  <stop offset="78%" stop-color="#8A6516"/>
+                  <stop offset="100%" stop-color="#5F4310"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <sc-for list="{{ stars }}" as="star" hint-placeholder-count="5">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="{{ starSvgStyle }}">
+                <path d="M12 2.4 14.29 8.85 21.13 9.03 15.71 13.21 17.64 19.77 12 15.9 6.36 19.77 8.29 13.21 2.87 9.03 9.71 8.85Z" fill="url(#starMetal)" stroke="#5F4310" stroke-width="0.6" stroke-linejoin="miter"/>
+              </svg>
+            </sc-for>
+            <div style="{{ starsGleamStyle }}"></div>
+          </div>
+          <span style="{{ reviewTextStyle }}">5-Star Reviews on Google</span>
+        </div>
+
+        <ul style="{{ trustListStyle }}">
+          <sc-for list="{{ trustPoints }}" as="point" hint-placeholder-count="3">
+            <li style="{{ trustItemStyle }}"><i class="ph ph-check-circle" style="{{ trustIconStyle }}"></i>{{ point }}</li>
+          </sc-for>
+        </ul>
+
+        <div style="{{ teamPhotoWrapStyle }}">
+          <!-- Real RiseCon team photograph -->
+          <div role="img" aria-label="The RiseCon team" style="{{ teamPhotoStyle }}"></div>
+          <div style="{{ teamPhotoScrimStyle }}"></div>
+          <div style="{{ teamPhotoCopyStyle }}">
+            <h3 style="{{ teamPhotoTitleStyle }}">Questions Before You Start?</h3>
+            <p style="{{ teamPhotoBodyStyle }}">Our team is here to help. Send us a message and we&rsquo;ll be in touch shortly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="{{ rightColStyle }}">
+        <sc-if value="{{ formSubmitted }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ successPanelStyle }}">
+            <i class="ph-fill ph-check-circle" style="font-size:46px; color: var(--color-accent);"></i>
+            <h2 style="{{ successTitleStyle }}">Thank You</h2>
+            <p style="{{ successBodyStyle }}">We received your project information. A member of the RiseCon team will be in touch shortly.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ formNotSubmitted }}" hint-placeholder-val="{{ true }}">
+          <!-- Form submission is client-side only. Connect handleFormSubmit() to a CRM, email service, or API endpoint. -->
+          <form onSubmit="{{ handleFormSubmit }}" style="{{ formPanelStyle }}">
+            <h2 style="{{ formTitleStyle }}">Request a Free Estimate</h2>
+            <div style="{{ formGridStyle }}">
+              <div class="field" style="{{ spanStyle }}">
+                <label for="fullName" style="{{ labelStyle }}">Full Name</label>
+                <input class="input" id="fullName" required="{{ true }}" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.fullName }}" onChange="{{ setFullName }}"/>
+              </div>
+              <div class="field">
+                <label for="email" style="{{ labelStyle }}">Email</label>
+                <input class="input" id="email" type="email" required="{{ true }}" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.email }}" onChange="{{ setEmail }}"/>
+              </div>
+              <div class="field">
+                <label for="phone" style="{{ labelStyle }}">Phone Number</label>
+                <input class="input" id="phone" type="tel" required="{{ true }}" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.phone }}" onChange="{{ setPhone }}"/>
+              </div>
+              <div class="field" style="{{ spanStyle }}">
+                <label for="address" style="{{ labelStyle }}">Project Address / City</label>
+                <input class="input" id="address" required="{{ true }}" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.address }}" onChange="{{ setAddress }}"/>
+              </div>
+              <div class="field">
+                <label for="projectType" style="{{ labelStyle }}">Project Type</label>
+                <select class="input" id="projectType" required="{{ true }}" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.projectType }}" onChange="{{ setProjectType }}">
+                  <option value="">Select one</option>
+                  <option value="ADU">ADU</option>
+                  <option value="Kitchen Remodel">Kitchen Remodel</option>
+                  <option value="Bathroom Remodel">Bathroom Remodel</option>
+                  <option value="Custom Home">Custom Home</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="budget" style="{{ labelStyle }}">Approximate Budget</label>
+                <input class="input" id="budget" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.budget }}" onChange="{{ setBudget }}"/>
+              </div>
+              <div class="field" style="{{ spanStyle }}">
+                <label for="timeline" style="{{ labelStyle }}">Desired Timeline</label>
+                <select class="input" id="timeline" style="{{ inputStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.timeline }}" onChange="{{ setTimeline }}">
+                  <option value="">Select one</option>
+                  <option value="As soon as possible">As soon as possible</option>
+                  <option value="1–3 months">1–3 months</option>
+                  <option value="3–6 months">3–6 months</option>
+                  <option value="6+ months">6+ months</option>
+                  <option value="Still planning">Still planning</option>
+                </select>
+              </div>
+              <div class="field" style="{{ spanStyle }}">
+                <label for="details" style="{{ labelStyle }}">Project Details</label>
+                <textarea class="input" id="details" rows="4" style="{{ textareaStyle }}" style-focus="{{ inputFocusStyle }}" value="{{ form.details }}" onChange="{{ setDetails }}"></textarea>
+              </div>
+              <div style="{{ spanStyle }}">
+                <button type="submit" style="{{ submitBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Request My Free Estimate</button>
+                <p style="{{ privacyNoteStyle }}">Your information will only be used to contact you about your project.</p>
+              </div>
+            </div>
+          </form>
+        </sc-if>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="{{ footerStyle }}">
+    <div style="{{ footerTopStyle }}">
+      <div style="{{ footerBrandColStyle }}">
+        <img src="./assets/risecon-logo.png" alt="RiseCon" style="{{ footerLogoImgStyle }}"/>
+        <p style="{{ footerDescStyle }}">A Northern California general contractor building ADUs, remodels, and custom homes with disciplined craftsmanship.</p>
+        <div style="{{ socialRowStyle }}">
+          <a href="https://www.instagram.com/risecon_northamerica/" target="_blank" rel="noopener" aria-label="RiseCon on Instagram" style="{{ socialIconStyle }}" style-hover="{{ socialIconHoverStyle }}"><i class="ph ph-instagram-logo"></i></a>
+          <a href="https://www.facebook.com/risecon/" target="_blank" rel="noopener" aria-label="RiseCon on Facebook" style="{{ socialIconStyle }}" style-hover="{{ socialIconHoverStyle }}"><i class="ph ph-facebook-logo"></i></a>
+          <a href="https://www.linkedin.com/in/risecon-north-america-05b21831" target="_blank" rel="noopener" aria-label="RiseCon on LinkedIn" style="{{ socialIconStyle }}" style-hover="{{ socialIconHoverStyle }}"><i class="ph ph-linkedin-logo"></i></a>
+        </div>
+      </div>
+      <div style="{{ footerColStyle }}">
+        <h6 style="{{ footerHeadingStyle }}">Navigate</h6>
+        <a href="./index.dc.html" style="{{ footerLinkStyle }}">Home</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">Services</a>
+        <a href="./adu-models.dc.html" style="{{ footerLinkStyle }}">ADU Models</a>
+        <a href="./about.dc.html" style="{{ footerLinkStyle }}">About</a>
+        <a href="./contact.dc.html" style="{{ footerLinkStyle }}">Contact</a>
+      </div>
+      <div style="{{ footerColStyle }}">
+        <h6 style="{{ footerHeadingStyle }}">Services</h6>
+        <a href="./services.dc.html#adus" style="{{ footerLinkStyle }}">ADUs</a>
+        <a href="./services.dc.html#kitchens" style="{{ footerLinkStyle }}">Kitchen Remodels</a>
+        <a href="./services.dc.html#bathrooms" style="{{ footerLinkStyle }}">Bathroom Remodels</a>
+        <a href="./services.dc.html#custom-homes" style="{{ footerLinkStyle }}">Custom Home Builds</a>
+      </div>
+      <div style="{{ footerColStyle }}">
+        <h6 style="{{ footerHeadingStyle }}">Contact</h6>
+        <a href="tel:19163787878" style="{{ footerLinkStyle }}">(916) 378-7878</a>
+        <a href="mailto:sales@risecon.com" style="{{ footerLinkStyle }}">sales@risecon.com</a>
+        <span style="{{ footerTextStyle }}">4361 Pacific St.<br/>Rocklin, CA 95677</span>
+      </div>
+    </div>
+    <div style="{{ footerBottomStyle }}">
+      <span>Serving Placer County, Sacramento County, and Northern California</span>
+      <span>CA Contractor License #926933</span>
+      <span>&copy; {{ year }} RiseCon North America. All rights reserved.</span>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 1000}}">
+class Component extends DCLogic {
+  state = {
+    scrolled: false, menuOpen: false, reducedMotion: false, isNarrow: false, isTablet: false, formSubmitted: false,
+    logoHover: false, burgerHover: false, navCtaHover: false, hoveredNav: null,
+    form: { fullName: '', email: '', phone: '', address: '', projectType: '', budget: '', timeline: '', details: '' }
+  };
+
+  componentDidMount() {
+    this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    this._onKey = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('keydown', this._onKey);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.setState({ reducedMotion: true });
+    this._mqN = window.matchMedia('(max-width: 760px)');
+    this._mqT = window.matchMedia('(max-width: 1120px)');
+    this._onMq = () => this.setState({ isNarrow: this._mqN.matches, isTablet: this._mqT.matches });
+    this._onMq();
+    [this._mqN, this._mqT].forEach((mq) => mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('keydown', this._onKey);
+    [this._mqN, this._mqT].forEach((mq) => { if (!mq) return; mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq); });
+  }
+
+  setField = (field, e) => this.setState((s) => ({ form: { ...s.form, [field]: e.target.value } }));
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    // TODO: connect this submission to a CRM, email service, or API endpoint.
+    // this.state.form holds { fullName, email, phone, address, projectType, budget, timeline, details }.
+    this.setState({ formSubmitted: true });
+  };
+
+  onLogoEnter = () => this.setState({ logoHover: true });
+  onLogoLeave = () => this.setState({ logoHover: false });
+  onBurgerEnter = () => this.setState({ burgerHover: true });
+  onBurgerLeave = () => this.setState({ burgerHover: false });
+  onNavCtaEnter = () => this.setState({ navCtaHover: true });
+  onNavCtaLeave = () => this.setState({ navCtaHover: false });
+
+  renderVals() {
+    const gold = '#C99A24', brightGold = '#E0B43D', paleGold = '#F0DA9C';
+    const silver = '#B8BEC6', softWhite = '#F4F5F6', mutedGray = '#9AA3AD', nearBlack = '#05080C';
+    const ease = 'cubic-bezier(.16,1,.3,1)';
+    const { scrolled, reducedMotion, isNarrow: narrow, isTablet: tablet } = this.state;
+    const stack = narrow || tablet;
+
+    const primaryBtnStyle = {
+      display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer',
+      padding: '17px 30px', borderRadius: '2px', border: `1px solid ${brightGold}`,
+      fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase',
+      color: '#0A0D12',
+      backgroundImage: `linear-gradient(100deg, ${gold} 0%, ${brightGold} 40%, ${paleGold} 50%, ${brightGold} 60%, ${gold} 100%)`,
+      backgroundSize: '240% 100%', backgroundPosition: '100% 0',
+      boxShadow: '0 10px 26px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35)',
+      transition: `background-position .9s ${ease}, transform .25s ${ease}, box-shadow .3s ease`
+    };
+    const inputStyle = {
+      width: '100%', padding: '13px 14px', fontSize: '15px',
+      background: 'color-mix(in srgb, #05080C 62%, transparent)',
+      border: '1px solid color-mix(in srgb, #B8BEC6 22%, transparent)',
+      borderRadius: '2px', color: softWhite, fontFamily: 'var(--font-body)',
+      transition: 'border-color .25s ease, box-shadow .25s ease, background .25s ease'
+    };
+
+    // The active menu item follows the file being viewed, so no page has to declare it.
+    const path = decodeURIComponent(location.pathname);
+    const currentPage = /Catalog/i.test(path) ? 'Catalog'
+      : /adu-model/i.test(path) ? 'ADU Models'
+      : /Services/i.test(path) ? 'Services'
+      : /About/i.test(path) ? 'About'
+      : /Contact/i.test(path) ? 'Contact'
+      : 'Home';
+    const burgerHover = this.state.burgerHover;
+    const logoHover = this.state.logoHover;
+    const navCtaHover = this.state.navCtaHover;
+    const menuOpenNow = this.state.menuOpen;
+    const burgerBar = (extra) => ({
+      display: 'block', width: '20px', height: '1.5px', borderRadius: '1px',
+      background: burgerHover || menuOpenNow ? brightGold : softWhite,
+      transition: 'transform .32s cubic-bezier(.16,1,.3,1), opacity .22s ease, background-color .3s ease',
+      ...extra
+    });
+
+    const navItems = [
+      { label: 'Home', href: './index.dc.html' },
+      { label: 'Services', href: './services.dc.html' },
+      { label: 'ADU Models', href: './adu-models.dc.html' },
+      { label: 'Catalog', href: './catalog.dc.html' },
+      { label: 'About', href: './about.dc.html' },
+      { label: 'Contact', href: './contact.dc.html' }
+    ].map((it, i) => {
+      const active = it.label === currentPage;
+      const hov = this.state.hoveredNav === i;
+      return {
+        ...it,
+        onEnter: () => this.setState({ hoveredNav: i }),
+        onLeave: () => this.setState({ hoveredNav: null }),
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
+      };
+    });
+
+    return {
+      pageStyle: {
+        color: softWhite, minHeight: '100vh', fontFamily: 'var(--font-body)', position: 'relative',
+        background: `radial-gradient(1200px 620px at 12% 14%, rgba(15,39,64,0.32), transparent 62%),
+                     radial-gradient(1100px 560px at 88% 46%, rgba(17,24,32,0.5), transparent 62%),
+                     ${nearBlack}`
+      },
+      navStyle: {
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 60,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: scrolled ? '12px clamp(20px,5vw,64px)' : '20px clamp(20px,5vw,64px)',
+        background: scrolled ? 'color-mix(in srgb, #05080C 82%, transparent)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
+        borderBottom: scrolled ? '1px solid color-mix(in srgb, #B8BEC6 14%, transparent)' : '1px solid transparent',
+        transition: 'padding .4s ease, background .4s ease, border-color .4s ease'
+      },
+      logoLinkStyle: {
+        display: 'flex', alignItems: 'center', height: scrolled ? '46px' : '54px',
+        transform: logoHover ? 'scale(1.025)' : 'scale(1)',
+        filter: logoHover ? 'brightness(1.12)' : 'brightness(1)',
+        transition: 'height .4s ease, transform .3s ease, filter .3s ease'
+      },
+      logoImgStyle: { height: '100%', width: 'auto', maxWidth: '230px', objectFit: 'contain', display: 'block' },
+      navPhoneStyle: { display: narrow ? 'none' : 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 18px', border: '1px solid color-mix(in srgb, #B8BEC6 34%, transparent)', borderRadius: '2px', color: softWhite, fontSize: '13.5px', fontWeight: 600, letterSpacing: '0.03em', transition: `border-color .3s ease, color .3s ease, transform .25s ${ease}, box-shadow .3s ease`, ...(navCtaHover ? { borderColor: brightGold, color: brightGold, transform: 'scale(1.025)', boxShadow: '0 0 16px rgba(224,180,61,0.22)' } : null) },
+      navPhoneHoverStyle: { borderColor: brightGold, color: brightGold, transform: 'translateY(-2px) scale(1.02)' },
+      hamburgerStyle: {
+        position: 'relative', width: '40px', height: '40px', display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', gap: '5px',
+        background: burgerHover ? 'color-mix(in srgb, #E0B43D 6%, transparent)' : 'transparent',
+        border: `1px solid ${burgerHover || menuOpenNow ? brightGold : 'color-mix(in srgb, #B8BEC6 30%, transparent)'}`,
+        borderRadius: '2px', color: softWhite, cursor: 'pointer',
+        transform: burgerHover ? 'scale(1.03)' : 'scale(1)',
+        transition: 'border-color .3s ease, background-color .3s ease, transform .3s ease'
+      },
+      burgerBarTopStyle: burgerBar(menuOpenNow ? { transform: 'translateY(7px) rotate(45deg)' } : {}),
+      burgerBarMidStyle: burgerBar(menuOpenNow ? { opacity: 0, transform: 'scaleX(0.4)' } : {}),
+      burgerBarBotStyle: burgerBar(menuOpenNow ? { transform: 'translateY(-7px) rotate(-45deg)' } : {}),
+      menuButtonLabel: this.state.menuOpen ? 'Close menu' : 'Open menu',
+      menuIconClass: this.state.menuOpen ? 'ph ph-x' : 'ph ph-list',
+      menuOpen: this.state.menuOpen,
+      menuBackdropStyle: { position: 'fixed', inset: 0, zIndex: 55, background: 'color-mix(in srgb, #05080C 90%, transparent)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'riseFadeIn .3s ease both' },
+      menuPanelStyle: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', textAlign: 'center', animation: 'riseFadeUp .5s ease both' },
+      navItems,
+      onLogoEnter: this.onLogoEnter, onLogoLeave: this.onLogoLeave,
+      onBurgerEnter: this.onBurgerEnter, onBurgerLeave: this.onBurgerLeave,
+      onNavCtaEnter: this.onNavCtaEnter, onNavCtaLeave: this.onNavCtaLeave,
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      stopPropagation: (e) => e.stopPropagation(),
+
+      primaryBtnStyle,
+      primaryBtnHoverStyle: { backgroundPosition: '0% 0', transform: 'translateY(-2px) scale(1.02)', boxShadow: '0 16px 36px rgba(201,154,36,0.3), inset 0 1px 0 rgba(255,255,255,0.5)' },
+      btnActiveStyle: { transform: 'scale(0.98)', filter: 'brightness(0.94)' },
+      btnFocusStyle: { outline: `2px solid ${brightGold}`, outlineOffset: '3px' },
+
+      heroSectionStyle: { position: 'relative', overflow: 'hidden' },
+      heroBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/collage/crew-plans.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 30%', filter: 'brightness(0.3) saturate(0.62)', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.1s ease both' },
+      heroTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(5,8,12,0.9) 0%, rgba(7,21,34,0.78) 40%, rgba(5,8,12,0.94) 85%, ${nearBlack} 100%)` },
+      splitStyle: {
+        position: 'relative', zIndex: 2,
+        display: 'grid', gridTemplateColumns: stack ? '1fr' : '1fr 1fr',
+        gap: 'clamp(32px,4vw,56px)', alignItems: 'start',
+        padding: 'clamp(112px,13vw,150px) clamp(20px,6vw,80px) clamp(56px,7vw,88px)',
+        maxWidth: '1320px', margin: '0 auto'
+      },
+
+      leftColStyle: { display: 'flex', flexDirection: 'column' },
+      kickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.16em', textTransform: 'uppercase', margin: '0 0 14px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .6s ease .1s forwards' },
+      titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(36px,5vw,60px)', lineHeight: 1.06, letterSpacing: '-0.02em', margin: '0 0 16px', display: 'flex', flexDirection: 'column' },
+      lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '3px' },
+      line1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .85s ${ease} .25s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
+      subStyle: { fontSize: 'clamp(15px,1.5vw,18px)', color: silver, lineHeight: 1.7, maxWidth: '480px', margin: '0 0 26px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .5s forwards' },
+
+      reviewRowStyle: { display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '22px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .65s forwards' },
+      googleLogoStyle: { width: 'auto', height: '20px', objectFit: 'contain', display: 'block', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' },
+      stars: [0, 1, 2, 3, 4],
+      starSvgStyle: { display: 'block', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.6))' },
+      starsRowStyle: { position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '4px', overflow: 'hidden', padding: '2px 0' },
+      starsGleamStyle: {
+        position: 'absolute', top: '-30%', bottom: '-30%', left: 0, width: '18%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,244,188,0.15), rgba(255,248,210,0.7), rgba(255,244,188,0.15), transparent)',
+        filter: 'blur(2px)', mixBlendMode: 'screen', pointerEvents: 'none',
+        transform: 'translateX(-40%) skewX(-18deg)',
+        opacity: reducedMotion ? 0 : 1,
+        animation: reducedMotion ? 'none' : 'starRowGleam 5.5s ease-in-out infinite'
+      },
+      reviewTextStyle: { fontSize: '12.5px', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600, color: softWhite },
+
+      trustPoints: ['30+ years of construction experience', 'Licensed Northern California general contractor', 'Direct communication from first call to final walkthrough'],
+      trustListStyle: { listStyle: 'none', padding: 0, margin: '0 0 30px', display: 'grid', gap: '10px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .8s forwards' },
+      trustItemStyle: { display: 'flex', alignItems: 'center', gap: '10px', color: silver, fontSize: '14.5px' },
+      trustIconStyle: { color: gold, fontSize: '17px', flexShrink: 0 },
+
+      teamPhotoWrapStyle: { position: 'relative', width: '100%', minHeight: narrow ? '230px' : '280px', borderRadius: '3px', overflow: 'hidden', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease 1.1s forwards' },
+      teamPhotoStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/candid-team.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 28%', filter: 'brightness(0.62) saturate(0.85)' },
+      teamPhotoScrimStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,12,0.18) 30%, rgba(5,8,12,0.9) 100%)' },
+      teamPhotoCopyStyle: { position: 'absolute', left: 0, right: 0, bottom: 0, padding: '22px 24px' },
+      teamPhotoTitleStyle: { fontFamily: 'var(--font-heading)', fontSize: '19px', fontWeight: 600, color: softWhite, margin: '0 0 6px', letterSpacing: '-0.01em' },
+      teamPhotoBodyStyle: { color: silver, fontSize: '13.5px', lineHeight: 1.6, margin: 0, maxWidth: '380px' },
+
+      rightColStyle: { position: 'relative' },
+      formPanelStyle: {
+        background: 'color-mix(in srgb, #111820 94%, transparent)',
+        border: '1px solid color-mix(in srgb, #B8BEC6 16%, transparent)',
+        borderRadius: '3px', padding: 'clamp(24px,3.2vw,38px)',
+        boxShadow: '0 28px 60px rgba(0,0,0,0.6)',
+        backdropFilter: 'blur(6px)'
+      },
+      formTitleStyle: { fontFamily: 'var(--font-heading)', fontSize: '22px', fontWeight: 600, letterSpacing: '-0.01em', color: softWhite, margin: '0 0 22px' },
+      formGridStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(2,minmax(0,1fr))', gap: '16px' },
+      spanStyle: { gridColumn: '1/-1' },
+      labelStyle: { display: 'block', fontSize: '11.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: mutedGray, marginBottom: '7px', fontWeight: 600 },
+      inputStyle,
+      textareaStyle: { ...inputStyle, resize: 'vertical', minHeight: '104px' },
+      inputFocusStyle: { borderColor: brightGold, outline: 'none', boxShadow: '0 0 0 3px rgba(224,180,61,0.16)', background: 'color-mix(in srgb, #05080C 40%, transparent)' },
+      submitBtnStyle: { ...primaryBtnStyle, width: '100%' },
+      privacyNoteStyle: { fontSize: '12px', color: mutedGray, textAlign: 'center', marginTop: '13px', lineHeight: 1.6 },
+
+      form: this.state.form,
+      formSubmitted: this.state.formSubmitted,
+      formNotSubmitted: !this.state.formSubmitted,
+      setFullName: (e) => this.setField('fullName', e),
+      setEmail: (e) => this.setField('email', e),
+      setPhone: (e) => this.setField('phone', e),
+      setAddress: (e) => this.setField('address', e),
+      setProjectType: (e) => this.setField('projectType', e),
+      setBudget: (e) => this.setField('budget', e),
+      setTimeline: (e) => this.setField('timeline', e),
+      setDetails: (e) => this.setField('details', e),
+      handleFormSubmit: this.handleFormSubmit,
+      successPanelStyle: { display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '14px', padding: '64px 26px', background: 'color-mix(in srgb, #111820 94%, transparent)', border: '1px solid color-mix(in srgb, #C99A24 28%, transparent)', borderRadius: '3px', boxShadow: '0 28px 60px rgba(0,0,0,0.6)' },
+      successTitleStyle: { fontFamily: 'var(--font-heading)', fontSize: '28px', fontWeight: 600, color: softWhite, margin: 0, letterSpacing: '-0.01em' },
+      successBodyStyle: { color: silver, fontSize: '15px', lineHeight: 1.7, maxWidth: '380px', margin: 0 },
+
+      footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
+      footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
+      footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
+      socialRowStyle: { display: 'flex', gap: '12px', marginTop: '4px' },
+      socialIconStyle: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '34px', height: '34px', border: '1px solid color-mix(in srgb, #B8BEC6 30%, transparent)', borderRadius: '2px', color: silver, fontSize: '15px', transition: 'border-color .3s ease, color .3s ease' },
+      socialIconHoverStyle: { borderColor: brightGold, color: brightGold },
+      footerColStyle: { display: 'flex', flexDirection: 'column', gap: '10px' },
+      footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
+      footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
+      footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      year: new Date().getFullYear()
+    };
+  }
+}
+</script>
+</body>
+</html>
