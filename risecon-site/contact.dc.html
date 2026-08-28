@@ -325,7 +325,7 @@ class Component extends DCLogic {
         ...it,
         onEnter: () => this.setState({ hoveredNav: i }),
         onLeave: () => this.setState({ hoveredNav: null }),
-        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,min(6vw,calc(37.7px + 0.71vw)),56px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
         markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
       };
     });
@@ -393,12 +393,12 @@ class Component extends DCLogic {
         display: 'grid', gridTemplateColumns: stack ? '1fr' : '1fr 1fr',
         gap: 'clamp(32px,4vw,56px)', alignItems: 'start',
         padding: 'clamp(112px,13vw,150px) clamp(20px,6vw,80px) clamp(56px,7vw,88px)',
-        maxWidth: '1320px', margin: '0 auto'
+        maxWidth: '1720px', margin: '0 auto'
       },
 
       leftColStyle: { display: 'flex', flexDirection: 'column' },
       kickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.16em', textTransform: 'uppercase', margin: '0 0 14px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .6s ease .1s forwards' },
-      titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(36px,5vw,60px)', lineHeight: 1.06, letterSpacing: '-0.02em', margin: '0 0 16px', display: 'flex', flexDirection: 'column' },
+      titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(36px,min(5vw,calc(47.1px + 0.89vw)),70px)', lineHeight: 1.06, letterSpacing: '-0.02em', margin: '0 0 16px', display: 'flex', flexDirection: 'column' },
       lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '3px' },
       line1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .85s ${ease} .25s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
       subStyle: { fontSize: 'clamp(15px,1.5vw,18px)', color: silver, lineHeight: 1.7, maxWidth: '480px', margin: '0 0 26px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .5s forwards' },
@@ -423,7 +423,7 @@ class Component extends DCLogic {
       trustItemStyle: { display: 'flex', alignItems: 'center', gap: '10px', color: silver, fontSize: '14.5px' },
       trustIconStyle: { color: gold, fontSize: '17px', flexShrink: 0 },
 
-      teamPhotoWrapStyle: { position: 'relative', width: '100%', minHeight: narrow ? '230px' : '280px', borderRadius: '3px', overflow: 'hidden', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease 1.1s forwards' },
+      teamPhotoWrapStyle: { position: 'relative', width: '100%', minHeight: narrow ? '230px' : 'clamp(280px,22vw,430px)', borderRadius: '3px', overflow: 'hidden', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease 1.1s forwards' },
       teamPhotoStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/candid-team.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 28%', filter: 'brightness(0.62) saturate(0.85)' },
       teamPhotoScrimStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,12,0.18) 30%, rgba(5,8,12,0.9) 100%)' },
       teamPhotoCopyStyle: { position: 'absolute', left: 0, right: 0, bottom: 0, padding: '22px 24px' },
@@ -465,7 +465,7 @@ class Component extends DCLogic {
       successBodyStyle: { color: silver, fontSize: '15px', lineHeight: 1.7, maxWidth: '380px', margin: 0 },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
-      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '36px' },
       footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -476,7 +476,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
       year: new Date().getFullYear()
     };
   }

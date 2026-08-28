@@ -560,7 +560,7 @@ class Component extends DCLogic {
         ...it,
         onEnter: () => this.setState({ hoveredNav: i }),
         onLeave: () => this.setState({ hoveredNav: null }),
-        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,min(6vw,calc(37.7px + 0.71vw)),56px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
         markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
       };
     });
@@ -734,12 +734,12 @@ class Component extends DCLogic {
         padding: hasImage
           ? 'clamp(150px,16vw,200px) clamp(20px,6vw,80px) clamp(44px,5vw,64px)'
           : 'clamp(112px,13vw,152px) clamp(20px,6vw,80px) clamp(28px,3.5vw,40px)',
-        maxWidth: '1320px', margin: '0 auto'
+        maxWidth: '1720px', margin: '0 auto'
       },
       backLinkStyle: { display: 'inline-flex', alignItems: 'center', gap: '8px', color: hasImage ? silver : mutedGray, fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginBottom: '26px', transition: 'color .25s ease' },
       backLinkHoverStyle: { color: brightGold },
       headRowStyle: { display: 'flex', gap: 'clamp(24px,4vw,48px)', alignItems: narrow ? 'stretch' : 'flex-end', justifyContent: 'space-between', flexDirection: narrow ? 'column' : 'row' },
-      titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,5.6vw,68px)', lineHeight: 1.03, letterSpacing: '-0.02em', margin: '0 0 14px', display: 'flex', flexDirection: 'column', textShadow: hasImage ? '0 2px 24px rgba(5,8,12,0.6)' : 'none' },
+      titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,min(5.6vw,calc(53.9px + 0.98vw)),79px)', lineHeight: 1.03, letterSpacing: '-0.02em', margin: '0 0 14px', display: 'flex', flexDirection: 'column', textShadow: hasImage ? '0 2px 24px rgba(5,8,12,0.6)' : 'none' },
       lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '3px' },
       line1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .85s ${ease} .15s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
       metaRowStyle: { display: 'flex', alignItems: 'center', gap: '13px', flexWrap: 'wrap', marginBottom: '18px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .4s forwards' },
@@ -753,7 +753,7 @@ class Component extends DCLogic {
         opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .75s ease .48s forwards'
       },
       priceStyle: {
-        fontFamily: 'var(--font-heading)', fontSize: 'clamp(21px,2.4vw,28px)', fontWeight: 600,
+        fontFamily: 'var(--font-heading)', fontSize: 'clamp(21px,min(2.4vw,calc(24.1px + 0.27vw)),31px)', fontWeight: 600,
         color: softWhite, letterSpacing: '-0.01em',
         textShadow: hasImage ? '0 2px 18px rgba(5,8,12,0.65)' : 'none'
       },
@@ -763,9 +763,9 @@ class Component extends DCLogic {
 
       // ── 2. 3D model ─────────────────────────────────────────────────────
       viewerSectionStyle: { position: 'relative' },
-      viewerInnerStyle: { padding: 'clamp(44px,5.5vw,76px) clamp(20px,6vw,80px) clamp(18px,2vw,26px)', maxWidth: '1320px', margin: '0 auto' },
+      viewerInnerStyle: { padding: 'clamp(44px,5.5vw,76px) clamp(20px,6vw,80px) clamp(18px,2vw,26px)', maxWidth: '1720px', margin: '0 auto' },
       viewerHeadRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '18px', flexWrap: 'wrap', marginBottom: '18px' },
-      sectionHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(24px,3vw,34px)', letterSpacing: '-0.015em', margin: 0, color: softWhite },
+      sectionHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(24px,min(3vw,calc(30.1px + 0.27vw)),37px)', letterSpacing: '-0.015em', margin: 0, color: softWhite },
       resetBtnStyle: {
         display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
         padding: '10px 16px', borderRadius: '2px', background: 'transparent',
@@ -797,12 +797,12 @@ class Component extends DCLogic {
       placeholderIconStyle: { fontSize: '28px', color: gold },
       placeholderTitle: 'Interactive 3D Model Coming Soon',
       placeholderBody: `A roofless 3D model of ${model.name} is being prepared. The full architectural plan set below shows the layout, dimensions and elevations.`,
-      placeholderTitleStyle: { fontFamily: 'var(--font-heading)', fontSize: 'clamp(19px,2.2vw,25px)', fontWeight: 600, color: softWhite, margin: 0, letterSpacing: '-0.01em' },
+      placeholderTitleStyle: { fontFamily: 'var(--font-heading)', fontSize: 'clamp(19px,min(2.2vw,calc(21.1px + 0.27vw)),28px)', fontWeight: 600, color: softWhite, margin: 0, letterSpacing: '-0.01em' },
       placeholderBodyStyle: { color: mutedGray, fontSize: '14px', lineHeight: 1.7, maxWidth: '440px', margin: 0 },
 
       // ── 3. Plan details ─────────────────────────────────────────────────
       specSectionStyle: { position: 'relative' },
-      specInnerStyle: { padding: 'clamp(36px,4.5vw,60px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      specInnerStyle: { padding: 'clamp(36px,4.5vw,60px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       specStripStyle: {
         display: 'grid',
         gridTemplateColumns: narrow ? 'repeat(2,minmax(0,1fr))' : `repeat(auto-fit,minmax(${tablet ? '160px' : '150px'},1fr))`,
@@ -835,7 +835,7 @@ class Component extends DCLogic {
       wheelZoom: this.wheelZoom,
       expanded,
       planSectionStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.42) 45%, rgba(5,8,12,0) 100%)' },
-      planInnerStyle: { padding: 'clamp(40px,5vw,72px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      planInnerStyle: { padding: 'clamp(40px,5vw,72px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       planToolbarStyle: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '14px', margin: '20px 0 18px' },
       planTabsStyle: { display: 'flex', flexWrap: 'wrap', gap: '8px' },
       planTabHoverStyle: { borderColor: 'color-mix(in srgb, #E0B43D 60%, transparent)', color: brightGold },
@@ -868,7 +868,7 @@ class Component extends DCLogic {
 
       // ── 5. Walkthrough ──────────────────────────────────────────────────
       videoSectionStyle: { position: 'relative' },
-      videoInnerStyle: { padding: 'clamp(20px,3vw,40px) clamp(20px,6vw,80px) clamp(40px,5vw,72px)', maxWidth: '1320px', margin: '0 auto' },
+      videoInnerStyle: { padding: 'clamp(20px,3vw,40px) clamp(20px,6vw,80px) clamp(40px,5vw,72px)', maxWidth: '1720px', margin: '0 auto' },
       videoFrameStyle: {
         position: 'relative', width: '100%', borderRadius: '4px', overflow: 'hidden', marginTop: '18px',
         border: '1px solid color-mix(in srgb, #B8BEC6 14%, transparent)',
@@ -880,12 +880,12 @@ class Component extends DCLogic {
       ctaOuterStyle: { position: 'relative', overflow: 'hidden' },
       ctaBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/collage/group.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 22%', filter: 'brightness(0.3) saturate(0.65)' },
       ctaTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.72) 42%, ${nearBlack} 100%)` },
-      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(64px,8vw,100px) clamp(20px,6vw,80px)', maxWidth: '760px', margin: '0 auto' },
-      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,3.6vw,42px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
+      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(64px,8vw,140px) clamp(20px,6vw,80px)', maxWidth: '900px', margin: '0 auto' },
+      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,min(3.6vw,calc(33.0px + 0.63vw)),49px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
       ctaBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.7, margin: '0 0 28px' },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
-      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '36px' },
       footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -896,7 +896,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
       year: new Date().getFullYear()
     };
   }

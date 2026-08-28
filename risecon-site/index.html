@@ -519,10 +519,11 @@ class Component extends DCLogic {
     }
     this._mqNarrow = window.matchMedia('(max-width: 760px)');
     this._mqTablet = window.matchMedia('(max-width: 1120px)');
+    this._mqWide = window.matchMedia('(min-width: 1700px)');
     this._mqMedium = window.matchMedia('(max-width: 1340px)');
-    this._onMq = () => this.setState({ isNarrow: this._mqNarrow.matches, isTablet: this._mqTablet.matches, isMedium: this._mqMedium.matches });
+    this._onMq = () => this.setState({ isNarrow: this._mqNarrow.matches, isTablet: this._mqTablet.matches, isWide: this._mqWide.matches, isMedium: this._mqMedium.matches });
     this._onMq();
-    [this._mqNarrow, this._mqTablet, this._mqMedium].forEach((mq) => {
+    [this._mqNarrow, this._mqTablet, this._mqWide, this._mqMedium].forEach((mq) => {
       mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq);
     });
 
@@ -568,7 +569,7 @@ class Component extends DCLogic {
       this.heroVideoEl.removeEventListener('canplay', this.handleVideoReady);
       this.heroVideoEl.removeEventListener('loadeddata', this.handleVideoReady);
     }
-    [this._mqNarrow, this._mqTablet, this._mqMedium].forEach((mq) => {
+    [this._mqNarrow, this._mqTablet, this._mqWide, this._mqMedium].forEach((mq) => {
       if (!mq) return;
       mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq);
     });
@@ -721,7 +722,7 @@ class Component extends DCLogic {
       transition: reducedMotion ? 'none' : `background-position 1.4s ${ease}`,
       ...extra
     });
-    const headingBase = { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(30px,4vw,46px)', letterSpacing: '-0.015em', margin: '0 0 40px' };
+    const headingBase = { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(30px,min(4vw,calc(37.0px + 0.63vw)),53px)', letterSpacing: '-0.015em', margin: '0 0 40px' };
 
     // The active menu item follows the file being viewed, so no page has to declare it.
     const path = decodeURIComponent(location.pathname);
@@ -782,10 +783,10 @@ class Component extends DCLogic {
     };
 
     const services = [
-      { title: 'ADUs', desc: 'Purpose-built spaces that add flexibility, functionality, and long-term value to your property.', img: './assets/services/adu-exterior.jpg', href: './adu-models.dc.html' },
-      { title: 'Kitchen Remodels', desc: 'Modern kitchens designed around the way you live, gather, and entertain.', img: './assets/completed/adu-kitchen.jpg', href: '#estimate' },
-      { title: 'Bathroom Remodels', desc: 'Refined, functional bathrooms built with careful attention to every finish.', img: './assets/completed/adu-bath.jpg', href: '#estimate' },
-      { title: 'Custom Home Builds', desc: 'From concept to completion, we build distinctive homes designed around your vision.', img: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=900&q=80', href: '#estimate' }
+      { title: 'ADUs', desc: 'Purpose-built spaces that add flexibility, functionality, and long-term value to your property.', img: './assets/services/adu-exterior.jpg', href: './services.dc.html#adus' },
+      { title: 'Kitchen Remodels', desc: 'Modern kitchens designed around the way you live, gather, and entertain.', img: './assets/completed/adu-kitchen.jpg', href: './services.dc.html#kitchens' },
+      { title: 'Bathroom Remodels', desc: 'Refined, functional bathrooms built with careful attention to every finish.', img: './assets/completed/adu-bath.jpg', href: './services.dc.html#bathrooms' },
+      { title: 'Custom Home Builds', desc: 'From concept to completion, we build distinctive homes designed around your vision.', img: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=900&q=80', href: './services.dc.html#custom-homes' }
     ].map((s, i) => {
       const hov = this.state.hoveredService === i;
       return {
@@ -814,7 +815,7 @@ class Component extends DCLogic {
 
     // Featured ADU models come from adu-models.js (the shared catalog).
     const aduData = this.state.aduData;
-    const modelCols = narrow ? 1 : (tablet ? 2 : 3);
+    const modelCols = narrow ? 1 : (tablet ? 2 : (this.state.isWide ? 4 : 3));
     // Touch devices have no hover, so they simply keep the exterior render.
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const models = (aduData ? aduData.FEATURED : []).map((m, i) => {
@@ -1027,12 +1028,12 @@ class Component extends DCLogic {
       heroGradeStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(7,21,34,0.55) 0%, rgba(5,8,12,0.3) 45%, rgba(7,21,34,0.6) 100%)', mixBlendMode: 'multiply', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.2s ease .25s forwards' },
       heroOverlayStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,12,0.5) 0%, rgba(5,8,12,0.22) 30%, rgba(5,8,12,0.58) 68%, rgba(5,8,12,0.96) 100%)' },
       heroSplitStyle: { position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', width: '100%', minHeight: '100vh', padding: 'clamp(120px,14vw,170px) clamp(20px,6vw,80px) clamp(60px,8vw,100px)' },
-      heroContentStyle: { maxWidth: '900px' },
-      heroHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(42px,7.4vw,86px)', lineHeight: 1.05, letterSpacing: '-0.02em', color: softWhite, margin: '0 0 22px', display: 'flex', flexDirection: 'column' },
+      heroContentStyle: { maxWidth: 'min(1150px, 84vw)' },
+      heroHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(42px,min(7.4vw,calc(68.0px + 1.25vw)),100px)', lineHeight: 1.05, letterSpacing: '-0.02em', color: softWhite, margin: '0 0 22px', display: 'flex', flexDirection: 'column' },
       heroLineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '2px' },
       heroLine1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp 1s ${ease} .35s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
       heroLine2Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp 1s ${ease} .55s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
-      heroSubStyle: { fontSize: 'clamp(16px,1.6vw,20px)', color: silver, lineHeight: 1.6, maxWidth: '560px', margin: '0 0 34px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease .85s forwards' },
+      heroSubStyle: { fontSize: 'clamp(16px,1.6vw,20px)', color: silver, lineHeight: 1.6, maxWidth: '620px', margin: '0 0 34px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease .85s forwards' },
       heroBtnRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '8px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .9s ease 1.05s forwards' },
       // Five identical, perfectly still metallic stars. The only motion is one gleam crossing the row.
       stars: [0, 1, 2, 3, 4],
@@ -1067,7 +1068,7 @@ class Component extends DCLogic {
       trustBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/candid-team.jpg')", backgroundSize: 'cover', backgroundPosition: narrow ? '60% 30%' : 'center 32%', filter: 'brightness(0.34) saturate(0.72) contrast(1.02)' },
       trustTintStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(120deg, rgba(5,8,12,0.82) 0%, rgba(7,21,34,0.6) 55%, rgba(5,8,12,0.8) 100%)' },
       trustVignetteStyle: { position: 'absolute', inset: 0, background: 'radial-gradient(120% 90% at 50% 45%, rgba(5,8,12,0) 30%, rgba(5,8,12,0.75) 100%)' },
-      trustSectionStyle: { position: 'relative', display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(320px,1fr))', gap: 'clamp(40px,6vw,80px)', alignItems: 'center', padding: 'clamp(80px,10vw,130px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      trustSectionStyle: { position: 'relative', display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(320px,1fr))', gap: 'clamp(40px,6vw,80px)', alignItems: 'center', padding: 'clamp(80px,10vw,130px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       trustKickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', margin: '0 0 14px', ...fadeUp('trust-text', 0) },
       trustHeadlineStyle: { ...headingBase, lineHeight: 1.1, margin: '0 0 20px', ...metallicText('trust-h2'), opacity: shown('trust-text') ? 1 : 0, transform: shown('trust-text') ? 'translateY(0)' : 'translateY(24px)' },
       trustBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.75, maxWidth: '520px', ...fadeUp('trust-text', 0.22) },
@@ -1112,7 +1113,7 @@ class Component extends DCLogic {
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px',
         boxShadow: 'inset 0 6px 14px rgba(255,235,180,0.26), inset 0 -10px 22px rgba(28,19,3,0.8)'
       },
-      medalNumberStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(50px,6.6vw,64px)', lineHeight: 0.95, color: '#2E2105', textShadow: '0 1px 0 rgba(255,231,168,0.55), 0 -1px 1px rgba(20,13,2,0.7)' },
+      medalNumberStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(50px,min(6.6vw,calc(51.1px + 0.89vw)),74px)', lineHeight: 0.95, color: '#2E2105', textShadow: '0 1px 0 rgba(255,231,168,0.55), 0 -1px 1px rgba(20,13,2,0.7)' },
       medalDividerStyle: { width: '44%', height: '2px', background: 'linear-gradient(90deg, transparent, rgba(255,231,168,0.45), transparent)', boxShadow: '0 1px 0 rgba(28,19,3,0.6)', margin: '9px 0 7px' },
       medalYearsStyle: { fontSize: '10px', letterSpacing: '0.26em', lineHeight: 1.6, textAlign: 'center', color: '#33240A', textShadow: '0 1px 0 rgba(255,231,168,0.45)' },
       medalSheenStyle: {
@@ -1129,7 +1130,7 @@ class Component extends DCLogic {
       },
 
       servicesOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(17,24,32,0.35) 45%, rgba(5,8,12,0) 100%)' },
-      sectionWrapStyle: { padding: 'clamp(64px,8vw,110px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      sectionWrapStyle: { padding: 'clamp(64px,8vw,110px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       servicesHeadlineStyle: { ...headingBase, ...metallicText('services-h2') },
       modelsOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.42) 40%, rgba(17,24,32,0.3) 70%, rgba(5,8,12,0) 100%)' },
       modelsHeadlineStyle: { ...headingBase, margin: '0 0 16px', ...metallicText('models-h2') },
@@ -1144,9 +1145,9 @@ class Component extends DCLogic {
       modelsGridStyle: { display: 'grid', gridTemplateColumns: `repeat(${modelCols},minmax(0,1fr))`, gap: '18px' },
 
       catalogOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.55) 50%, rgba(5,8,12,0) 100%)' },
-      catalogSectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(40px,6vw,70px)', alignItems: 'center', padding: 'clamp(60px,8vw,100px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      catalogSectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(40px,6vw,70px)', alignItems: 'center', padding: 'clamp(60px,8vw,100px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       catalogTextColStyle: { position: 'relative', zIndex: 2 },
-      catalogHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,3.4vw,38px)', letterSpacing: '-0.015em', margin: '0 0 14px', ...metallicText('catalog-h2') },
+      catalogHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,min(3.4vw,calc(30.3px + 0.54vw)),44px)', letterSpacing: '-0.015em', margin: '0 0 14px', ...metallicText('catalog-h2') },
       catalogBodyStyle: { color: silver, fontSize: '15px', lineHeight: 1.7, maxWidth: '440px', margin: '0 0 28px', ...fadeUp('catalog-text', 0.15) },
       catalogActionStyle: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '10px', ...fadeUp('catalog-text', 0.25) },
       catalogMetaStyle: { color: mutedGray, fontSize: '12px', letterSpacing: '0.08em' },
@@ -1234,8 +1235,8 @@ class Component extends DCLogic {
       dlNoteStyle: { color: mutedGray, fontSize: '11.5px', letterSpacing: '0.1em', marginTop: '4px' },
 
       processOuterStyle: { position: 'relative', background: nearBlack },
-      timelineSectionStyle: { padding: 'clamp(48px,5.5vw,72px) clamp(20px,6vw,80px)', maxWidth: '1200px', margin: '0 auto' },
-      processHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,3.2vw,38px)', letterSpacing: '-0.015em', margin: '0 0 42px', ...metallicText('process-h2') },
+      timelineSectionStyle: { padding: 'clamp(48px,5.5vw,72px) clamp(20px,6vw,80px)', maxWidth: '1560px', margin: '0 auto' },
+      processHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,min(3.2vw,calc(30.3px + 0.54vw)),44px)', letterSpacing: '-0.015em', margin: '0 0 42px', ...metallicText('process-h2') },
       processSteps,
       setTimelineRef: (el) => { this.timelineEl = el; },
       timelineWrapStyle: { position: 'relative', paddingTop: '2px' },
@@ -1294,9 +1295,9 @@ class Component extends DCLogic {
       collageCStyle: { position: 'absolute', bottom: 0, right: 0, width: narrow ? '100%' : '52%', height: '58%', backgroundImage: "url('./assets/collage/group.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 20%', filter: 'brightness(0.34) saturate(0.62)', WebkitMaskImage: 'linear-gradient(310deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)', maskImage: 'linear-gradient(310deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)' },
       collageDStyle: { position: 'absolute', bottom: 0, left: 0, width: narrow ? '100%' : '44%', height: '50%', backgroundImage: "url('./assets/collage/crew-plans.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 35%', filter: 'brightness(0.32) saturate(0.6)', WebkitMaskImage: 'linear-gradient(40deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)', maskImage: 'linear-gradient(40deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)' },
       collageTintStyle: { position: 'absolute', inset: 0, background: `radial-gradient(110% 80% at 50% 45%, rgba(5,8,12,0.62) 0%, rgba(5,8,12,0.88) 68%, ${nearBlack} 100%), linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.5) 30%, rgba(7,21,34,0.5) 70%, ${nearBlack} 100%)` },
-      estimateSectionStyle: { position: 'relative', padding: 'clamp(72px,9vw,120px) clamp(20px,6vw,80px)', maxWidth: '1080px', margin: '0 auto' },
+      estimateSectionStyle: { position: 'relative', padding: 'clamp(72px,9vw,120px) clamp(20px,6vw,80px)', maxWidth: '1240px', margin: '0 auto' },
       estimateHeaderStyle: { textAlign: 'center', marginBottom: '44px', ...fadeUp('estimate-head', 0) },
-      estimateHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(30px,4.2vw,46px)', letterSpacing: '-0.015em', margin: '0 0 16px', display: 'inline-block', ...metallicText('estimate-h2') },
+      estimateHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(30px,min(4.2vw,calc(37.0px + 0.63vw)),53px)', letterSpacing: '-0.015em', margin: '0 0 16px', display: 'inline-block', ...metallicText('estimate-h2') },
       estimateBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.7, maxWidth: '520px', margin: '0 auto' },
       formSubmitted: this.state.formSubmitted,
       formNotSubmitted: !this.state.formSubmitted,
@@ -1318,7 +1319,7 @@ class Component extends DCLogic {
       privacyNoteStyle: { fontSize: '12px', color: mutedGray, textAlign: 'center', marginTop: '12px' },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
-      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '36px' },
       footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -1329,7 +1330,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
       year: new Date().getFullYear(),
 
       toggleMenu: this.toggleMenu,

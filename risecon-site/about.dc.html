@@ -322,7 +322,7 @@ class Component extends DCLogic {
         ...it,
         onEnter: () => this.setState({ hoveredNav: i }),
         onLeave: () => this.setState({ hoveredNav: null }),
-        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,min(6vw,calc(37.7px + 0.71vw)),56px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
         markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
       };
     });
@@ -394,19 +394,19 @@ class Component extends DCLogic {
       heroSectionStyle: { position: 'relative', minHeight: narrow ? '64vh' : '76vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' },
       heroBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('https://images.unsplash.com/photo-1521747116042-5a810fda9664?auto=format&fit=crop&w=1800&q=80')", backgroundSize: 'cover', backgroundPosition: 'center 40%', filter: 'brightness(0.4) saturate(0.35) contrast(1.06)', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.4s ease both' },
       heroOverlayStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(5,8,12,0.86) 0%, rgba(7,21,34,0.52) 40%, rgba(5,8,12,0.9) 82%, ${nearBlack} 100%)` },
-      heroInnerStyle: { position: 'relative', zIndex: 2, width: '100%', padding: 'clamp(140px,16vw,190px) clamp(20px,6vw,80px) clamp(56px,7vw,90px)', maxWidth: '1320px', margin: '0 auto' },
+      heroInnerStyle: { position: 'relative', zIndex: 2, width: '100%', padding: 'clamp(140px,16vw,190px) clamp(20px,6vw,80px) clamp(56px,7vw,90px)', maxWidth: '1720px', margin: '0 auto' },
       heroKickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.16em', textTransform: 'uppercase', margin: '0 0 16px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .2s forwards' },
-      heroTitleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(32px,5.2vw,64px)', lineHeight: 1.08, letterSpacing: '-0.02em', margin: 0, display: 'flex', flexDirection: 'column' },
+      heroTitleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(32px,min(5.2vw,calc(51.1px + 0.89vw)),74px)', lineHeight: 1.08, letterSpacing: '-0.02em', margin: 0, display: 'flex', flexDirection: 'column' },
       lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '3px' },
       heroLine1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .95s ${ease} .35s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
       heroLine2Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .95s ${ease} .52s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
 
       kickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: '0 0 14px' },
-      sectionHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,3.6vw,42px)', letterSpacing: '-0.015em', margin: '0 0 22px', color: softWhite },
-      sectionWrapStyle: { padding: 'clamp(52px,6.5vw,90px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      sectionHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,min(3.6vw,calc(33.0px + 0.63vw)),49px)', letterSpacing: '-0.015em', margin: '0 0 22px', color: softWhite },
+      sectionWrapStyle: { padding: 'clamp(52px,6.5vw,90px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
 
       storyOuterStyle: { position: 'relative' },
-      storySectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1.4fr 1fr', gap: 'clamp(36px,5vw,70px)', alignItems: 'center', padding: 'clamp(56px,7vw,100px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      storySectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1.4fr 1fr', gap: 'clamp(36px,5vw,70px)', alignItems: 'center', padding: 'clamp(56px,7vw,100px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       storyLeadStyle: { color: softWhite, fontSize: 'clamp(18px,2vw,23px)', lineHeight: 1.65, maxWidth: '620px', margin: '0 0 20px', ...fadeUp('story', 0.05) },
       storyBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.75, maxWidth: '560px', margin: 0, ...fadeUp('story', 0.16) },
       medalColStyle: { display: 'flex', justifyContent: 'center', ...fadeUp('medal', 0.1, 28) },
@@ -431,7 +431,7 @@ class Component extends DCLogic {
       archiveTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.42) 45%, ${nearBlack} 100%)` },
 
       localOuterStyle: { position: 'relative' },
-      localSectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1.1fr 1fr', gap: 'clamp(32px,5vw,64px)', alignItems: 'center', padding: 'clamp(52px,6.5vw,90px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto', ...fadeUp('local', 0) },
+      localSectionStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1.1fr 1fr', gap: 'clamp(32px,5vw,64px)', alignItems: 'center', padding: 'clamp(52px,6.5vw,90px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto', ...fadeUp('local', 0) },
       localBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.75, maxWidth: '520px', margin: 0 },
       areaGridStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px' },
       areas: ['Roseville', 'Rocklin', 'Loomis', 'Lincoln', 'Granite Bay', 'Sacramento', 'Folsom', 'Greater Northern California'],
@@ -448,11 +448,11 @@ class Component extends DCLogic {
       ctaOuterStyle: { position: 'relative', overflow: 'hidden' },
       ctaBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/collage/smile-plans.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 30%', filter: 'brightness(0.3) saturate(0.65)' },
       ctaTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.72) 45%, ${nearBlack} 100%)` },
-      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(70px,9vw,110px) clamp(20px,6vw,80px)', maxWidth: '720px', margin: '0 auto' },
-      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,3.8vw,44px)', letterSpacing: '-0.015em', margin: '0 0 26px', color: softWhite },
+      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(70px,9vw,150px) clamp(20px,6vw,80px)', maxWidth: '720px', margin: '0 auto' },
+      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,min(3.8vw,calc(35.0px + 0.63vw)),51px)', letterSpacing: '-0.015em', margin: '0 0 26px', color: softWhite },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
-      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '36px' },
       footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -463,7 +463,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
       year: new Date().getFullYear()
     };
   }

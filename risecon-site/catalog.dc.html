@@ -228,7 +228,7 @@ class Component extends DCLogic {
         ...it,
         onEnter: () => this.setState({ hoveredNav: i }),
         onLeave: () => this.setState({ hoveredNav: null }),
-        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,min(6vw,calc(37.7px + 0.71vw)),56px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
         markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
       };
     });
@@ -298,11 +298,11 @@ class Component extends DCLogic {
       heroOuterStyle: { position: 'relative', flex: 1, display: 'flex', alignItems: 'center', overflow: 'hidden', padding: narrow ? '140px 0 80px' : '150px 0 100px', background: `linear-gradient(180deg, ${navy} 0%, #05080C 62%, #05080C 100%)` },
       // Lighting behind the whole stage, so the book sits in a lit room rather than on a flat field.
       heroAmbientStyle: { position: 'absolute', top: '-10%', right: narrow ? '-30%' : '-6%', width: narrow ? '120%' : '62%', height: '110%', background: 'radial-gradient(closest-side, rgba(201,154,36,0.13) 0%, rgba(201,154,36,0.05) 46%, rgba(201,154,36,0) 78%)', pointerEvents: 'none' },
-      heroGridStyle: { position: 'relative', zIndex: 1, width: '100%', maxWidth: '1320px', margin: '0 auto', padding: '0 clamp(20px,5vw,64px)', display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1fr 1.05fr', gap: narrow ? '58px' : 'clamp(40px,6vw,88px)', alignItems: 'center' },
+      heroGridStyle: { position: 'relative', zIndex: 1, width: '100%', maxWidth: '1720px', margin: '0 auto', padding: '0 clamp(20px,5vw,64px)', display: 'grid', gridTemplateColumns: narrow ? '1fr' : '1fr 1.05fr', gap: narrow ? '58px' : 'clamp(40px,6vw,88px)', alignItems: 'center' },
 
       textColStyle: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', animation: 'riseFadeUp .8s ease both' },
       kickerStyle: { color: gold, fontSize: '11.5px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, margin: '0 0 18px' },
-      headlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,5.6vw,68px)', letterSpacing: '-0.02em', lineHeight: 1.04, color: softWhite, margin: '0 0 20px' },
+      headlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,min(5.6vw,calc(53.9px + 0.98vw)),79px)', letterSpacing: '-0.02em', lineHeight: 1.04, color: softWhite, margin: '0 0 20px' },
       bodyStyle: { color: silver, fontSize: 'clamp(15px,1.4vw,17.5px)', lineHeight: 1.7, maxWidth: '440px', margin: '0 0 34px', textWrap: 'pretty' },
       actionRowStyle: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '18px' },
       ctaBtnStyle: outlineBtn(this.state.ctaHover),
@@ -357,7 +357,7 @@ class Component extends DCLogic {
       },
 
       footerStyle: { background: '#05080C', borderTop: '1px solid color-mix(in srgb, #B8BEC6 14%, transparent)', padding: '58px clamp(20px,5vw,64px) 34px', color: silver, fontSize: '13.5px' },
-      footerInnerStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '34px' },
+      footerInnerStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '34px' },
       footerBrandStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -365,7 +365,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' }
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' }
     };
   }
 }

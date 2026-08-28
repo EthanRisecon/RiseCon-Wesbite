@@ -185,17 +185,18 @@ class Component extends DCLogic {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.setState({ reducedMotion: true });
     this._mqN = window.matchMedia('(max-width: 760px)');
     this._mqT = window.matchMedia('(max-width: 1120px)');
+    this._mqW = window.matchMedia('(min-width: 1700px)');
     // Touch devices have no hover, so they simply keep the exterior render.
     this._mqH = window.matchMedia('(hover: hover) and (pointer: fine)');
-    this._onMq = () => this.setState({ isNarrow: this._mqN.matches, isTablet: this._mqT.matches, canHover: this._mqH.matches });
+    this._onMq = () => this.setState({ isNarrow: this._mqN.matches, isTablet: this._mqT.matches, isWide: this._mqW.matches, canHover: this._mqH.matches });
     this._onMq();
-    [this._mqN, this._mqT, this._mqH].forEach((mq) => mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq));
+    [this._mqN, this._mqT, this._mqW, this._mqH].forEach((mq) => mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq));
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('keydown', this._onKey);
-    [this._mqN, this._mqT, this._mqH].forEach((mq) => { if (!mq) return; mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq); });
+    [this._mqN, this._mqT, this._mqW, this._mqH].forEach((mq) => { if (!mq) return; mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq); });
   }
 
   onLogoEnter = () => this.setState({ logoHover: true });
@@ -242,7 +243,7 @@ class Component extends DCLogic {
     const data = this.state.data;
     const all = data ? data.MODELS : [];
     const filterDefs = data ? data.SIZE_FILTERS : [];
-    const cols = narrow ? 1 : (tablet ? 2 : 3);
+    const cols = narrow ? 1 : (tablet ? 2 : (this.state.isWide ? 4 : 3));
     const activeFilter = this.state.filter;
 
     const visibleModels = all
@@ -378,7 +379,7 @@ class Component extends DCLogic {
         ...it,
         onEnter: () => this.setState({ hoveredNav: i }),
         onLeave: () => this.setState({ hoveredNav: null }),
-        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,6vw,48px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
+        linkStyle: { display: 'flex', alignItems: 'center', gap: '16px', color: (active || hov) ? brightGold : softWhite, fontSize: 'clamp(28px,min(6vw,calc(37.7px + 0.71vw)),56px)', fontWeight: 500, padding: '10px 0', letterSpacing: '-0.01em', textDecoration: 'none', transition: 'color .25s ease' },
         markStyle: { flex: '0 0 auto', height: '2px', width: active ? '38px' : hov ? '20px' : '0px', background: brightGold, opacity: active ? 1 : hov ? 0.7 : 0, transition: 'width .3s ease, opacity .3s ease' }
       };
     });
@@ -448,9 +449,9 @@ class Component extends DCLogic {
       heroSectionStyle: { position: 'relative', minHeight: narrow ? '62vh' : '72vh', display: 'flex', alignItems: 'center', overflow: 'hidden' },
       heroBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/jobsite-plans.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 42%', filter: 'brightness(0.42) saturate(0.72)', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.2s ease both' },
       heroOverlayStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(5,8,12,0.82) 0%, rgba(5,8,12,0.5) 42%, rgba(5,8,12,0.86) 78%, ${nearBlack} 100%)` },
-      heroInnerStyle: { position: 'relative', zIndex: 2, width: '100%', padding: 'clamp(130px,15vw,180px) clamp(20px,6vw,80px) clamp(56px,7vw,90px)', maxWidth: '1320px', margin: '0 auto' },
+      heroInnerStyle: { position: 'relative', zIndex: 2, width: '100%', padding: 'clamp(130px,15vw,180px) clamp(20px,6vw,80px) clamp(56px,7vw,90px)', maxWidth: '1720px', margin: '0 auto' },
       heroKickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', margin: '0 0 16px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .15s forwards' },
-      heroTitleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,6vw,72px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 20px', display: 'flex', flexDirection: 'column' },
+      heroTitleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,min(6vw,calc(56.6px + 1.07vw)),84px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 20px', display: 'flex', flexDirection: 'column' },
       lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '2px' },
       heroLine1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .9s ${ease} .3s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
       heroLine2Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .9s ${ease} .45s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
@@ -458,7 +459,7 @@ class Component extends DCLogic {
       heroBtnRowStyle: { display: 'flex', gap: '14px', flexWrap: 'wrap', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .8s ease .9s forwards' },
 
       modelsOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.34) 45%, rgba(5,8,12,0) 100%)' },
-      sectionWrapStyle: { padding: 'clamp(50px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: '1320px', margin: '0 auto' },
+      sectionWrapStyle: { padding: 'clamp(50px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
       filterRowStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '32px' },
       modelsGridStyle: { display: 'grid', gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`, gap: '18px' },
       visibleModels,
@@ -469,12 +470,12 @@ class Component extends DCLogic {
       ctaOuterStyle: { position: 'relative', overflow: 'hidden' },
       ctaBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/collage/group.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 22%', filter: 'brightness(0.3) saturate(0.65)' },
       ctaTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.72) 42%, ${nearBlack} 100%)` },
-      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(70px,9vw,110px) clamp(20px,6vw,80px)', maxWidth: '760px', margin: '0 auto' },
-      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,3.6vw,42px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
+      ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(70px,9vw,150px) clamp(20px,6vw,80px)', maxWidth: '900px', margin: '0 auto' },
+      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,min(3.6vw,calc(33.0px + 0.63vw)),49px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
       ctaBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.7, margin: '0 0 28px' },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },
-      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1320px', margin: '0 auto', paddingBottom: '36px' },
+      footerTopStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fit,minmax(200px,1fr))', gap: '36px', maxWidth: '1720px', margin: '0 auto', paddingBottom: '36px' },
       footerBrandColStyle: { display: 'flex', flexDirection: 'column', gap: '14px', maxWidth: '320px' },
       footerLogoImgStyle: { width: '100%', maxWidth: '170px', height: 'auto', objectFit: 'contain', display: 'block' },
       footerDescStyle: { color: mutedGray, fontSize: '13.5px', lineHeight: 1.65, margin: 0 },
@@ -485,7 +486,7 @@ class Component extends DCLogic {
       footerHeadingStyle: { color: mutedGray, fontSize: '11px', letterSpacing: '0.12em', margin: '0 0 6px' },
       footerLinkStyle: { color: silver, fontSize: '14px', transition: 'color .25s ease' },
       footerTextStyle: { color: silver, fontSize: '14px', lineHeight: 1.6 },
-      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1320px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
+      footerBottomStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px 24px', justifyContent: 'space-between', maxWidth: '1720px', margin: '0 auto', paddingTop: '22px', borderTop: '1px solid color-mix(in srgb, #B8BEC6 10%, transparent)', color: mutedGray, fontSize: '12px' },
       year: new Date().getFullYear()
     };
   }
