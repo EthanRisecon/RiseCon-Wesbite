@@ -29,15 +29,19 @@ Framework Preset: **Other**. No build command, no output directory.
 `index.html` at `/`; the `.dc.html` copy is what the design tool edits, so
 both ship.
 
-Supporting files: `site.css` (fonts, colors, page reset), `support.js`
-(runtime), `adu-models.js` (all 13 ADU specs), `plan-render.js` (floor-plan
-viewer), `assets/` (images, GLB models, plan PDFs, catalog PDF, video),
-`vercel.json` (clean URLs and asset caching).
+Supporting files: `site.css` (fonts, colors, page reset, form fields),
+`support.js` (runtime), `adu-models.js` (all 13 ADU specs), `plan-render.js`
+(floor-plan viewer), `assets/` (images, GLB models, plan PDFs, catalog PDF,
+video), `vercel.json` (clean URLs and asset caching).
+
+## ADU model names
+
+The 13 models are named ALPHA through MIKE in `adu-models.js`. URLs still use
+the original slugs (`?model=adu-240`), so existing links keep working.
 
 ## Performance notes
 
-- `assets/hero-drone.mp4` (18 MB) and
-  `assets/models/spanish-style-studio-walkthrough.mp4` (17 MB) dominate first
-  load. Moving them to Vercel Blob or a CDN is the biggest available win.
+- `assets/hero-drone.mp4` (18 MB) dominates first load. Moving it to Vercel
+  Blob or a CDN is the biggest available win.
 - `assets/models/*-exterior.png` are ~2 MB each. Converting to JPEG saves
   about 25 MB with no visible difference.

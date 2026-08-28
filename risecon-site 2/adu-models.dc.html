@@ -8,11 +8,18 @@
 <body>
 <x-dc>
 <helmet>
-  <title>Construction Services | RiseCon</title>
-  <meta name="description" content="ADUs, kitchen and bathroom remodels, and custom home builds from a Northern California general contractor with 30+ years of experience.">
+  <title>ADU Models &amp; Floor Plan Concepts | RiseCon</title>
+  <meta name="description" content="Explore conceptual RiseCon ADU models designed for Northern California properties, with preliminary planning estimates.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
   <link rel="stylesheet" href="./site.css">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <!-- GLB viewer for the aerial hover preview. Exactly one instance is ever
+       mounted — the hovered card — so the grid never holds 13 WebGL contexts. -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
+    model-viewer { width: 100%; height: 100%; background: transparent; --poster-color: transparent; --progress-bar-color: transparent; --progress-mask: transparent; }
     :root {
       --color-bg: #05080C; --color-surface: #111820; --color-text: #F4F5F6;
       --color-accent: #C99A24; --color-accent-2: #B8BEC6;
@@ -26,22 +33,10 @@
     @keyframes riseFadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes riseLineUp { from { transform: translateY(105%); } to { transform: translateY(0); } }
   </style>
-  <template id="__bundler_thumbnail">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#05080C"></rect><g fill="none" stroke="#C99A24" stroke-width="9" stroke-linejoin="round"><path d="M120 170 L200 110 L280 170"></path><path d="M140 170 L140 220 L260 220 L260 170"></path></g><rect x="120" y="240" width="160" height="9" fill="#B8BEC6"></rect></svg>
-  </template>
 </helmet>
 
 <div style="{{ pageStyle }}">
 
-  <div aria-hidden="true" style="position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; clip:rect(0 0 0 0);">
-    <img data-asset="adu-exterior-oaks" src="./assets/completed/adu-exterior-oaks.jpg" alt=""/>
-    <img data-asset="adu-kitchen" src="./assets/completed/adu-kitchen.jpg" alt=""/>
-    <img data-asset="adu-bath" src="./assets/completed/adu-bath.jpg" alt=""/>
-    <img data-asset="adu-living" src="./assets/completed/adu-living.jpg" alt=""/>
-    <img data-asset="adu-bedroom" src="./assets/completed/adu-bedroom.jpg" alt=""/>
-    <img data-asset="jobsite-team" src="./assets/jobsite-team.jpg" alt=""/>
-    <img data-asset="candid-team" src="./assets/candid-team.jpg" alt=""/>
-  </div>
   <nav style="{{ navStyle }}" aria-label="Primary">
     <a href="./index.dc.html" aria-label="RiseCon home" onMouseEnter="{{ onLogoEnter }}" onMouseLeave="{{ onLogoLeave }}" style="{{ logoLinkStyle }}">
       <img src="./assets/risecon-logo.png" alt="RiseCon" style="{{ logoImgStyle }}"/>
@@ -70,55 +65,60 @@
     <div style="{{ heroBgStyle }}"></div>
     <div style="{{ heroOverlayStyle }}"></div>
     <div style="{{ heroInnerStyle }}">
-      <h6 style="{{ heroKickerStyle }}">What We Build</h6>
+      <h6 style="{{ heroKickerStyle }}">RiseCon ADU Collection</h6>
       <h1 style="{{ heroTitleStyle }}">
-        <span style="{{ lineMaskStyle }}"><span style="{{ heroLine1Style }}">Built Around The</span></span>
-        <span style="{{ lineMaskStyle }}"><span style="{{ heroLine2Style }}">Way You Live.</span></span>
+        <span style="{{ lineMaskStyle }}"><span style="{{ heroLine1Style }}">Find The Right</span></span>
+        <span style="{{ lineMaskStyle }}"><span style="{{ heroLine2Style }}">Starting Point.</span></span>
       </h1>
-      <p style="{{ heroSubStyle }}">From backyard ADUs to complete custom homes, RiseCon brings decades of construction experience to every project.</p>
+      <p style="{{ heroSubStyle }}">Thirteen conceptual ADU plans, from a compact studio to a three-bedroom. Start with a footprint that works for your property, then customize the details with RiseCon.</p>
       <div style="{{ heroBtnRowStyle }}">
-        <a href="./contact.dc.html" style="{{ primaryBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Get a Free Estimate</a>
+        <a href="./contact.dc.html" style="{{ primaryBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Request an ADU Estimate</a>
       </div>
     </div>
   </section>
 
-  <sc-for list="{{ services }}" as="svc" hint-placeholder-count="4">
-    <section id="{{ svc.id }}" style="{{ svc.sectionStyle }}">
-      <div style="{{ svc.rowStyle }}">
-        <div style="{{ svc.mediaStyle }}" data-reveal="{{ svc.id }}">
-          <div role="img" aria-label="{{ svc.title }}" style="{{ svc.imgStyle }}"></div>
-          <div style="{{ svc.imgScrimStyle }}"></div>
-        </div>
-        <div style="{{ svc.textColStyle }}" data-reveal="{{ svc.textKey }}">
-          <h6 style="{{ svc.kickerStyle }}">{{ svc.kicker }}</h6>
-          <h2 style="{{ svc.titleStyle }}">{{ svc.title }}</h2>
-          <p style="{{ svc.bodyStyle }}">{{ svc.body }}</p>
-          <ul style="{{ svc.listStyle }}">
-            <sc-for list="{{ svc.points }}" as="point" hint-placeholder-count="5">
-              <li style="{{ svc.itemStyle }}"><i class="ph ph-check" style="{{ svc.checkStyle }}"></i>{{ point }}</li>
-            </sc-for>
-          </ul>
-          <a href="{{ svc.ctaHref }}" style="{{ svc.ctaStyle }}" style-hover="{{ secondaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">{{ svc.ctaLabel }} <i class="ph ph-arrow-right" style="font-size:14px;"></i></a>
-        </div>
-      </div>
-    </section>
-  </sc-for>
-
-  <section style="{{ workOuterStyle }}">
+  <section style="{{ modelsOuterStyle }}">
     <div style="{{ sectionWrapStyle }}">
-      <h6 style="{{ kickerStyle }}">Portfolio</h6>
-      <h2 style="{{ workHeadlineStyle }}">See The Work</h2>
-      <div style="{{ workGridStyle }}" data-reveal="work-grid">
-        <sc-for list="{{ work }}" as="tile" hint-placeholder-count="5">
-          <div onMouseEnter="{{ tile.onEnter }}" onMouseLeave="{{ tile.onLeave }}" style="{{ tile.wrapStyle }}">
-            <!-- Real RiseCon project photography -->
-            <div role="img" aria-label="{{ tile.label }}" style="{{ tile.imgStyle }}"></div>
-            <div style="{{ tile.scrimStyle }}"></div>
-            <span style="{{ tile.labelStyle }}">{{ tile.label }}</span>
-          </div>
+      <div style="{{ filterRowStyle }}">
+        <sc-for list="{{ filters }}" as="filter" hint-placeholder-count="4">
+          <button type="button" onClick="{{ filter.onClick }}" style="{{ filter.style }}" style-hover="{{ filterHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">{{ filter.label }}</button>
         </sc-for>
       </div>
-      <a href="./contact.dc.html" style="{{ startProjectBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Start Your Project</a>
+
+      <!-- MODEL DATA lives in adu-models.js — one file drives this page, the homepage, and every model page.
+           Exterior renderings (`image`) and 3D models (`glb`) drop in there with no changes here. -->
+      <div style="{{ modelsGridStyle }}">
+        <sc-for list="{{ visibleModels }}" as="model" hint-placeholder-count="13">
+          <a href="{{ model.href }}" onMouseEnter="{{ model.onEnter }}" onMouseLeave="{{ model.onLeave }}" style="{{ model.cardStyle }}" style-focus="{{ btnFocusStyle }}">
+            <div style="{{ model.mediaStyle }}">
+              <div role="img" aria-label="{{ model.mediaAlt }}" style="{{ model.mediaImgStyle }}"></div>
+              <sc-if value="{{ model.showPreview }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ model.previewWrapStyle }}" aria-hidden="true">
+                  <model-viewer src="{{ model.glb }}" poster="{{ model.cover }}" alt="{{ model.previewAlt }}" camera-orbit="0deg 12deg auto" min-camera-orbit="auto 6deg auto" max-camera-orbit="auto 26deg auto" environment-image="./assets/env/architectural-daylight.png" tone-mapping="neutral" exposure="1.12" shadow-intensity="0.35" shadow-softness="1" auto-rotate auto-rotate-delay="0" rotation-per-second="7deg" interaction-prompt="none" disable-zoom disable-tap disable-pan loading="eager" ref="{{ model.previewRef }}"></model-viewer>
+                </div>
+              </sc-if>
+              <div style="{{ model.planFadeStyle }}"></div>
+              <sc-if value="{{ model.noImage }}" hint-placeholder-val="{{ true }}">
+                <span style="{{ model.planTagStyle }}">{{ model.mediaTag }}</span>
+              </sc-if>
+              <sc-if value="{{ model.has3d }}" hint-placeholder-val="{{ false }}">
+                <span style="{{ model.badgeStyle }}"><i class="{{ model.badgeIcon }}" style="font-size:13px;"></i> {{ model.badgeLabel }}</span>
+              </sc-if>
+              <div style="{{ model.scrimStyle }}"></div>
+            </div>
+            <div style="{{ model.bodyStyle }}">
+              <h3 style="{{ model.nameStyle }}">{{ model.name }}</h3>
+              <span style="{{ model.sqftStyle }}">{{ model.sqftLabel }}</span>
+              <span style="{{ model.configStyle }}">{{ model.configLabel }}</span>
+              <span style="{{ model.priceStyle }}">{{ model.priceLabel }}</span>
+              <span style="{{ model.ctaStyle }}">View Model <i class="ph ph-arrow-right" style="{{ model.arrowStyle }}"></i></span>
+            </div>
+            <div style="{{ model.edgeSheenStyle }}"></div>
+          </a>
+        </sc-for>
+      </div>
+      <p style="{{ priceDisclaimerStyle }}">{{ priceDisclaimer }}</p>
+      <p style="{{ disclaimerStyle }}">Specifications shown are taken from concept plans and are provided for planning purposes only. Final square footage, layout, engineering, and construction cost vary based on site conditions, utilities, permitting, access, finishes, jurisdiction requirements, and project scope.</p>
     </div>
   </section>
 
@@ -126,9 +126,9 @@
     <div style="{{ ctaBgStyle }}"></div>
     <div style="{{ ctaTintStyle }}"></div>
     <div style="{{ ctaInnerStyle }}">
-      <h2 style="{{ ctaHeadlineStyle }}">Have Something In Mind?</h2>
-      <p style="{{ ctaBodyStyle }}">Tell us what you&rsquo;re planning. We&rsquo;ll help you understand the next step.</p>
-      <a href="./contact.dc.html" style="{{ primaryBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Get a Free Estimate</a>
+      <h2 style="{{ ctaHeadlineStyle }}">Not Sure Which Model Fits Your Property?</h2>
+      <p style="{{ ctaBodyStyle }}">Tell us about your space and what you&rsquo;re hoping to build.</p>
+      <a href="./contact.dc.html" style="{{ primaryBtnStyle }}" style-hover="{{ primaryBtnHoverStyle }}" style-active="{{ btnActiveStyle }}" style-focus="{{ btnFocusStyle }}">Request a Free ADU Estimate</a>
     </div>
   </section>
 
@@ -153,10 +153,10 @@
       </div>
       <div style="{{ footerColStyle }}">
         <h6 style="{{ footerHeadingStyle }}">Services</h6>
-        <a href="#adus" style="{{ footerLinkStyle }}">ADUs</a>
-        <a href="#kitchens" style="{{ footerLinkStyle }}">Kitchen Remodels</a>
-        <a href="#bathrooms" style="{{ footerLinkStyle }}">Bathroom Remodels</a>
-        <a href="#custom-homes" style="{{ footerLinkStyle }}">Custom Home Builds</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">ADUs</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">Kitchen Remodels</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">Bathroom Remodels</a>
+        <a href="./services.dc.html" style="{{ footerLinkStyle }}">Custom Home Builds</a>
       </div>
       <div style="{{ footerColStyle }}">
         <h6 style="{{ footerHeadingStyle }}">Contact</h6>
@@ -177,21 +177,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 1000}}">
 class Component extends DCLogic {
-  state = { scrolled: false, menuOpen: false, logoHover: false, burgerHover: false, navCtaHover: false, hoveredNav: null, hoveredTile: null, reducedMotion: false, isNarrow: false, isTablet: false, revealed: new Set() };
+  state = { scrolled: false, menuOpen: false, hoveredModel: null, previewSlug: null, previewOn: false, filter: 'all', reducedMotion: false, isNarrow: false, isTablet: false, canHover: false, data: null };
 
   componentDidMount() {
-    if (location.hash) {
-      const jump = (tries) => {
-        const el = document.getElementById(location.hash.slice(1));
-        if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 90; window.scrollTo({ top: y }); }
-        else if (tries > 0) setTimeout(() => jump(tries - 1), 120);
-      };
-      setTimeout(() => jump(10), 150);
-    }
-    const map = {};
-    document.querySelectorAll('[data-asset]').forEach((el) => { map[el.getAttribute('data-asset')] = el.getAttribute('src'); });
-    this._assets = map;
-    this.forceUpdate();
+    import('./adu-models.js').then((m) => this.setState({ data: m }));
     this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     this._onKey = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
@@ -199,23 +188,18 @@ class Component extends DCLogic {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.setState({ reducedMotion: true });
     this._mqN = window.matchMedia('(max-width: 760px)');
     this._mqT = window.matchMedia('(max-width: 1120px)');
-    this._onMq = () => this.setState({ isNarrow: this._mqN.matches, isTablet: this._mqT.matches });
+    this._mqW = window.matchMedia('(min-width: 1700px)');
+    // Touch devices have no hover, so they simply keep the exterior render.
+    this._mqH = window.matchMedia('(hover: hover) and (pointer: fine)');
+    this._onMq = () => this.setState({ isNarrow: this._mqN.matches, isTablet: this._mqT.matches, isWide: this._mqW.matches, canHover: this._mqH.matches });
     this._onMq();
-    [this._mqN, this._mqT].forEach((mq) => mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq));
-
-    this._observer = new IntersectionObserver((entries) => {
-      const hits = [];
-      entries.forEach((e) => { if (e.isIntersecting) { hits.push(e.target.getAttribute('data-reveal')); this._observer.unobserve(e.target); } });
-      if (hits.length) this.setState((s) => { const n = new Set(s.revealed); hits.forEach((h) => n.add(h)); return { revealed: n }; });
-    }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
-    requestAnimationFrame(() => document.querySelectorAll('[data-reveal]').forEach((el) => this._observer.observe(el)));
+    [this._mqN, this._mqT, this._mqW, this._mqH].forEach((mq) => mq.addEventListener ? mq.addEventListener('change', this._onMq) : mq.addListener(this._onMq));
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('keydown', this._onKey);
-    this._observer && this._observer.disconnect();
-    [this._mqN, this._mqT].forEach((mq) => { if (!mq) return; mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq); });
+    [this._mqN, this._mqT, this._mqW, this._mqH].forEach((mq) => { if (!mq) return; mq.removeEventListener ? mq.removeEventListener('change', this._onMq) : mq.removeListener(this._onMq); });
   }
 
   onLogoEnter = () => this.setState({ logoHover: true });
@@ -225,23 +209,27 @@ class Component extends DCLogic {
   onNavCtaEnter = () => this.setState({ navCtaHover: true });
   onNavCtaLeave = () => this.setState({ navCtaHover: false });
 
-  asset(path) {
-    const key = path.split('/').pop().replace(/\.(jpg|jpeg|png|webp)$/i, '');
-    return (this._assets && this._assets[key]) || path;
-  }
+  onModelEnter = (slug) => {
+    clearTimeout(this._previewTimer);
+    this.setState({ hoveredModel: slug, previewSlug: slug, previewOn: false });
+    // Two frames: mount at opacity 0, then let the transition carry it in.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (this.state.hoveredModel === slug) this.setState({ previewOn: true });
+    }));
+  };
+  onModelLeave = (slug) => {
+    this.setState((s) => (s.hoveredModel === slug ? { hoveredModel: null, previewOn: false } : null));
+    clearTimeout(this._previewTimer);
+    this._previewTimer = setTimeout(() => {
+      if (!this.state.hoveredModel) this.setState({ previewSlug: null });
+    }, 460);
+  };
 
   renderVals() {
-    const A = (p) => this.asset(p);
     const gold = '#C99A24', brightGold = '#E0B43D', paleGold = '#F0DA9C';
-    const silver = '#B8BEC6', softWhite = '#F4F5F6', mutedGray = '#9AA3AD', nearBlack = '#05080C';
+    const silver = '#B8BEC6', softWhite = '#F4F5F6', mutedGray = '#9AA3AD', nearBlack = '#05080C', charcoal = '#111820';
     const ease = 'cubic-bezier(.16,1,.3,1)';
-    const { scrolled, reducedMotion, isNarrow: narrow, isTablet: tablet } = this.state;
-    const shown = (id) => reducedMotion || this.state.revealed.has(id);
-    const fadeUp = (id, delay = 0, dist = 26) => ({
-      opacity: shown(id) ? 1 : 0,
-      transform: shown(id) ? 'translateY(0)' : `translateY(${dist}px)`,
-      transition: reducedMotion ? 'none' : `opacity .85s ${ease} ${delay}s, transform .85s ${ease} ${delay}s`
-    });
+    const { scrolled, reducedMotion, isNarrow: narrow, isTablet: tablet, canHover } = this.state;
 
     const primaryBtnStyle = {
       display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
@@ -253,95 +241,111 @@ class Component extends DCLogic {
       boxShadow: '0 10px 26px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35)',
       transition: `background-position .9s ${ease}, transform .25s ${ease}, box-shadow .3s ease`
     };
-    const secondaryBtnStyle = {
-      display: 'inline-flex', alignItems: 'center', gap: '9px', cursor: 'pointer',
-      padding: '14px 26px', borderRadius: '2px',
-      border: '1px solid color-mix(in srgb, #B8BEC6 45%, transparent)',
-      background: 'color-mix(in srgb, #F4F5F6 5%, transparent)',
-      fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase',
-      color: softWhite, marginTop: '24px',
-      transition: `border-color .35s ease, background .35s ease, transform .25s ${ease}, box-shadow .35s ease`
-    };
 
-    const services = [
-      {
-        id: 'adus', kicker: 'Service 01', title: 'ADUs',
-        body: 'RiseCon helps homeowners add flexible backyard living space — a second home on the property that can adapt as your needs change.',
-        points: ['Rental income', 'Family housing', 'Guest house', 'Home office', 'Multigenerational living'],
-        ctaLabel: 'Explore ADU Models', ctaHref: './adu-models.dc.html',
-        img: A('./assets/completed/adu-exterior-oaks.jpg')
-      },
-      {
-        id: 'kitchens', kicker: 'Service 02', title: 'Kitchen Remodels',
-        body: 'Modern kitchens designed around the way you live, gather, and entertain — planned for how the room actually gets used.',
-        points: ['Layout improvements', 'Cabinetry', 'Countertops', 'Lighting and flooring', 'Appliances and finish selections'],
-        ctaLabel: 'Get a Free Estimate', ctaHref: './contact.dc.html',
-        img: A('./assets/completed/adu-kitchen.jpg')
-      },
-      {
-        id: 'bathrooms', kicker: 'Service 03', title: 'Bathroom Remodels',
-        body: 'Refined, functional bathrooms built with careful attention to every finish and every detail behind the wall.',
-        points: ['Showers', 'Vanities and storage', 'Tile', 'Lighting', 'Plumbing fixtures and layout'],
-        ctaLabel: 'Get a Free Estimate', ctaHref: './contact.dc.html',
-        img: A('./assets/completed/adu-bath.jpg')
-      },
-      {
-        id: 'custom-homes', kicker: 'Service 04', title: 'Custom Home Builds',
-        body: 'From concept to completion, we build distinctive homes designed around your vision and managed with disciplined execution.',
-        points: ['Ground-up residential construction', 'Planning', 'Coordination', 'Construction management', 'Quality craftsmanship and client communication'],
-        ctaLabel: 'Get a Free Estimate', ctaHref: './contact.dc.html',
-        img: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80'
-      }
-    ].map((s, i) => {
-      const flip = i % 2 === 1;
-      const textKey = `${s.id}-text`;
-      return {
-        ...s,
-        textKey,
-        sectionStyle: { position: 'relative', background: i % 2 === 1 ? 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(17,24,32,0.35) 50%, rgba(5,8,12,0) 100%)' : 'transparent' },
-        rowStyle: {
-          display: 'grid',
-          gridTemplateColumns: narrow ? '1fr' : '1fr 1fr',
-          gap: 'clamp(30px,5vw,64px)', alignItems: 'center',
-          padding: 'clamp(48px,6vw,86px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto',
-          direction: !narrow && flip ? 'rtl' : 'ltr'
-        },
-        mediaStyle: { position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden', borderRadius: '3px', direction: 'ltr', ...fadeUp(s.id, 0, 30) },
-        imgStyle: { position: 'absolute', inset: 0, backgroundImage: `url(${s.img})`, backgroundSize: 'cover', backgroundPosition: 'center', transform: shown(s.id) ? 'scale(1)' : 'scale(1.1)', transition: reducedMotion ? 'none' : `transform 1.4s ${ease}` },
-        imgScrimStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,12,0.1) 40%, rgba(5,8,12,0.5) 100%)' },
-        textColStyle: { direction: 'ltr', ...fadeUp(textKey, 0.12) },
-        kickerStyle: { color: gold, fontSize: '11.5px', letterSpacing: '0.16em', textTransform: 'uppercase', margin: '0 0 12px' },
-        titleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,min(3.6vw,calc(33.0px + 0.63vw)),49px)', letterSpacing: '-0.015em', margin: '0 0 16px', color: softWhite },
-        bodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.75, maxWidth: '480px', margin: '0 0 22px' },
-        listStyle: { listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: '9px' },
-        itemStyle: { display: 'flex', alignItems: 'center', gap: '10px', color: mutedGray, fontSize: '14px' },
-        checkStyle: { color: gold, fontSize: '14px' },
-        ctaStyle: secondaryBtnStyle
-      };
-    });
+    // Catalog comes from adu-models.js — the single source of truth for all 13 plans.
+    const data = this.state.data;
+    const all = data ? data.MODELS : [];
+    const filterDefs = data ? data.SIZE_FILTERS : [];
+    const cols = narrow ? 1 : (tablet ? 2 : (this.state.isWide ? 4 : 3));
+    const activeFilter = this.state.filter;
 
-    const work = [
-      { label: 'ADU Build — Completed Interior', img: A('./assets/completed/adu-living.jpg'), span: 'large' },
-      { label: 'ADU Kitchen — Completed', img: A('./assets/completed/adu-kitchen.jpg'), span: 'small' },
-      { label: 'ADU Bath — Completed', img: A('./assets/completed/adu-bath.jpg'), span: 'small' },
-      { label: 'ADU Bedroom — Completed', img: A('./assets/completed/adu-bedroom.jpg'), span: 'small' },
-      { label: 'Residential Construction — Placer County', img: A('./assets/jobsite-team.jpg'), span: 'small' }
-    ].map((t, i) => {
-      const hov = this.state.hoveredTile === i;
+    const visibleModels = all
+      .filter((m) => activeFilter === 'all' || m.sizeBucket === activeFilter)
+      .map((m, i) => {
+        const hov = this.state.hoveredModel === m.slug;
+        const has3d = !!m.glb;
+        // The GLB and its WebGL context are created only for the card actually
+        // under the cursor, and torn down again the moment it leaves.
+        // Mounted while hovered AND through the fade-out that follows, so the
+        // model never vanishes mid-transition. Only one card holds a context.
+        const showPreview = has3d && canHover && !reducedMotion && this.state.previewSlug === m.slug;
+        return {
+          name: m.name, sqftLabel: m.sqftLabel, configLabel: m.configLabel,
+          mediaAlt: m.image ? `Exterior rendering of ${m.name}` : `Floor plan for ${m.name}`,
+          mediaTag: 'Plan view',
+          // The plan-view tag is only a stand-in for a missing rendering; when the
+          // card already carries the 3D badge, that badge is the stronger cue.
+          noImage: !m.image && !m.glb,
+          has3d,
+          glb: m.glb,
+          cover: m.cover || m.image,
+          showPreview,
+          previewAlt: `Aerial 3D floor plan of ${m.name}`,
+          // The exterior render doubles as the viewer's poster, so the card
+          // cross-fades straight into the aerial model with no dark gap.
+          previewWrapStyle: {
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            background: 'radial-gradient(120% 100% at 50% 12%, rgba(30,42,56,0.98) 0%, rgba(8,12,18,1) 72%)',
+            opacity: (this.state.previewOn && hov) ? 1 : 0,
+            transition: 'opacity .34s ease'
+          },
+          badgeIcon: 'ph ph-cube-transparent',
+          badgeLabel: '3D Floor Plan',
+          badgeStyle: {
+            position: 'absolute', left: '13px', top: '12px', display: 'inline-flex', alignItems: 'center', gap: '6px',
+            padding: '6px 11px', borderRadius: '2px', zIndex: 2,
+            background: 'color-mix(in srgb, #05080C 72%, transparent)',
+            border: `1px solid color-mix(in srgb, ${brightGold} ${hov ? 55 : 26}%, transparent)`,
+            backdropFilter: 'blur(6px)',
+            color: hov ? brightGold : softWhite, fontSize: '9.5px', letterSpacing: '0.13em', textTransform: 'uppercase', fontWeight: 600,
+            transition: 'color .4s ease, border-color .4s ease'
+          },
+          href: data ? data.modelHref(m.slug) : '#',
+          onEnter: () => this.onModelEnter(m.slug),
+          onLeave: () => this.onModelLeave(m.slug),
+          cardStyle: {
+            position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: '3px',
+            background: 'color-mix(in srgb, #111820 88%, transparent)',
+            border: hov ? `1px solid color-mix(in srgb, ${brightGold} 45%, transparent)` : '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)',
+            boxShadow: hov ? '0 24px 48px rgba(0,0,0,0.62)' : '0 8px 20px rgba(0,0,0,0.32)',
+            transform: hov ? 'translateY(-5px) scale(1.012)' : 'translateY(0) scale(1)',
+            transition: `transform .45s ${ease}, box-shadow .45s ease, border-color .4s ease`,
+            opacity: reducedMotion ? 1 : 0,
+            animation: reducedMotion ? 'none' : `riseFadeUp .7s ${ease} ${(0.04 + (i % 13) * 0.045).toFixed(2)}s forwards`
+          },
+          mediaStyle: { position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden', background: '#F4F5F6' },
+          mediaImgStyle: {
+            position: 'absolute', inset: 0,
+            backgroundImage: `url(${m.cover || m.image || m.plan})`,
+            backgroundSize: 'cover',
+            backgroundPosition: m.image ? 'center' : 'center 78%',
+            filter: m.image ? 'none' : 'grayscale(100%) contrast(1.05)',
+            transform: hov ? 'scale(1.05)' : 'scale(1)',
+            transition: `transform .8s ${ease}`
+          },
+          planFadeStyle: { position: 'absolute', inset: 0, background: m.image ? 'none' : 'linear-gradient(180deg, rgba(244,245,246,0.35) 0%, rgba(244,245,246,0) 40%)', pointerEvents: 'none' },
+          planTagStyle: { position: 'absolute', left: '13px', top: '12px', padding: '5px 10px', borderRadius: '2px', background: 'color-mix(in srgb, #05080C 78%, transparent)', color: silver, fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase' },
+          scrimStyle: { position: 'absolute', inset: 0, background: hov ? 'linear-gradient(180deg, rgba(5,8,12,0.02) 55%, rgba(5,8,12,0.34) 100%)' : 'linear-gradient(180deg, rgba(5,8,12,0) 60%, rgba(5,8,12,0.22) 100%)', transition: 'background .45s ease' },
+          bodyStyle: { display: 'flex', flexDirection: 'column', gap: '4px', padding: '20px 22px 22px' },
+          nameStyle: { fontFamily: 'var(--font-heading)', fontSize: '21px', fontWeight: 600, letterSpacing: '-0.01em', color: softWhite, margin: 0 },
+          sqftStyle: { fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 600, color: gold, letterSpacing: '0.01em', marginTop: '2px' },
+          configStyle: { fontSize: '13px', color: silver, letterSpacing: '0.03em' },
+          priceLabel: data ? data.priceLabel(m) : '',
+          priceStyle: {
+            marginTop: '11px', paddingTop: '11px',
+            borderTop: '1px solid color-mix(in srgb, #B8BEC6 11%, transparent)',
+            fontSize: '12.5px', fontWeight: 600, letterSpacing: '0.03em',
+            color: hov ? brightGold : softWhite, transition: 'color .3s ease'
+          },
+          ctaStyle: { display: 'inline-flex', alignItems: 'center', gap: '6px', marginTop: '15px', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, color: hov ? brightGold : silver, transition: 'color .3s ease' },
+          arrowStyle: { fontSize: '13px', transform: hov ? 'translateX(5px)' : 'translateX(0)', transition: `transform .4s ${ease}` },
+          edgeSheenStyle: { position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(100deg, transparent 40%, rgba(244,245,246,0.1) 50%, transparent 60%)', backgroundSize: '250% 100%', backgroundPosition: hov ? '120% 0' : '-150% 0', transition: `background-position 1.1s ${ease}` }
+        };
+      });
+
+    const filters = filterDefs.map((f) => {
+      const on = f.id === activeFilter;
       return {
-        ...t,
-        onEnter: () => this.setState({ hoveredTile: i }),
-        onLeave: () => this.setState({ hoveredTile: null }),
-        wrapStyle: {
-          position: 'relative', overflow: 'hidden', borderRadius: '3px',
-          gridColumn: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
-          gridRow: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
-          minHeight: narrow ? '200px' : (t.span === 'large' ? '100%' : '220px'),
-          ...fadeUp('work-grid', 0.05 + i * 0.09, 22)
-        },
-        imgStyle: { position: 'absolute', inset: 0, backgroundImage: `url(${t.img})`, backgroundSize: 'cover', backgroundPosition: 'center', transform: hov ? 'scale(1.06)' : 'scale(1)', transition: `transform .9s ${ease}` },
-        scrimStyle: { position: 'absolute', inset: 0, background: hov ? 'linear-gradient(180deg, rgba(5,8,12,0.12) 35%, rgba(5,8,12,0.85) 100%)' : 'linear-gradient(180deg, rgba(5,8,12,0.06) 45%, rgba(5,8,12,0.7) 100%)', transition: 'background .45s ease' },
-        labelStyle: { position: 'absolute', left: '18px', bottom: '16px', right: '18px', fontSize: '12.5px', letterSpacing: '0.06em', color: hov ? brightGold : softWhite, fontWeight: 600, transition: 'color .3s ease', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }
+        label: f.label,
+        onClick: () => this.setState({ filter: f.id }),
+        style: {
+          cursor: 'pointer', padding: '11px 19px', borderRadius: '2px',
+          border: on ? `1px solid ${brightGold}` : '1px solid color-mix(in srgb, #B8BEC6 22%, transparent)',
+          background: on ? 'color-mix(in srgb, #C99A24 16%, transparent)' : 'transparent',
+          color: on ? brightGold : silver,
+          fontFamily: 'var(--font-body)', fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
+          transition: `all .3s ${ease}`
+        }
       };
     });
 
@@ -386,9 +390,9 @@ class Component extends DCLogic {
     return {
       pageStyle: {
         color: softWhite, minHeight: '100vh', fontFamily: 'var(--font-body)', position: 'relative',
-        background: `radial-gradient(1200px 620px at 14% 12%, rgba(15,39,64,0.3), transparent 62%),
-                     radial-gradient(1100px 560px at 86% 44%, rgba(17,24,32,0.5), transparent 62%),
-                     radial-gradient(1150px 620px at 18% 80%, rgba(7,21,34,0.4), transparent 62%),
+        background: `radial-gradient(1200px 620px at 12% 14%, rgba(15,39,64,0.3), transparent 62%),
+                     radial-gradient(1100px 560px at 86% 40%, rgba(17,24,32,0.5), transparent 62%),
+                     radial-gradient(1150px 620px at 20% 82%, rgba(7,21,34,0.4), transparent 62%),
                      ${nearBlack}`
       },
       navStyle: {
@@ -440,15 +444,16 @@ class Component extends DCLogic {
 
       primaryBtnStyle,
       primaryBtnHoverStyle: { backgroundPosition: '0% 0', transform: 'translateY(-2px) scale(1.025)', boxShadow: '0 16px 36px rgba(201,154,36,0.3), inset 0 1px 0 rgba(255,255,255,0.5)' },
-      secondaryBtnHoverStyle: { borderColor: 'color-mix(in srgb, #E0B43D 70%, transparent)', background: 'color-mix(in srgb, #E0B43D 10%, transparent)', transform: 'translateY(-2px) scale(1.025)', boxShadow: '0 0 24px rgba(224,180,61,0.18)' },
       btnActiveStyle: { transform: 'scale(0.98)', filter: 'brightness(0.94)' },
       btnFocusStyle: { outline: `2px solid ${brightGold}`, outlineOffset: '3px' },
+      filterHoverStyle: { borderColor: 'color-mix(in srgb, #E0B43D 60%, transparent)', color: brightGold },
+      filters,
 
       heroSectionStyle: { position: 'relative', minHeight: narrow ? '62vh' : '72vh', display: 'flex', alignItems: 'center', overflow: 'hidden' },
-      heroBgStyle: { position: 'absolute', inset: 0, backgroundImage: `url('${A('./assets/jobsite-team.jpg')}')`, backgroundSize: 'cover', backgroundPosition: 'center 34%', filter: 'brightness(0.42) saturate(0.72)', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.2s ease both' },
-      heroOverlayStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(5,8,12,0.82) 0%, rgba(7,21,34,0.55) 42%, rgba(5,8,12,0.88) 80%, ${nearBlack} 100%)` },
+      heroBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/jobsite-plans.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 42%', filter: 'brightness(0.42) saturate(0.72)', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeIn 1.2s ease both' },
+      heroOverlayStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(5,8,12,0.82) 0%, rgba(5,8,12,0.5) 42%, rgba(5,8,12,0.86) 78%, ${nearBlack} 100%)` },
       heroInnerStyle: { position: 'relative', zIndex: 2, width: '100%', padding: 'clamp(130px,15vw,180px) clamp(20px,6vw,80px) clamp(56px,7vw,90px)', maxWidth: '1720px', margin: '0 auto' },
-      heroKickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: '0 0 16px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .15s forwards' },
+      heroKickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', margin: '0 0 16px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .7s ease .15s forwards' },
       heroTitleStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(38px,min(6vw,calc(56.6px + 1.07vw)),84px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 20px', display: 'flex', flexDirection: 'column' },
       lineMaskStyle: { display: 'block', overflow: 'hidden', paddingBottom: '2px' },
       heroLine1Style: { display: 'block', animation: reducedMotion ? 'none' : `riseLineUp .9s ${ease} .3s both`, transform: reducedMotion ? 'none' : 'translateY(105%)' },
@@ -456,21 +461,20 @@ class Component extends DCLogic {
       heroSubStyle: { fontSize: 'clamp(15px,1.5vw,18px)', color: silver, lineHeight: 1.7, maxWidth: '580px', margin: '0 0 30px', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .8s ease .7s forwards' },
       heroBtnRowStyle: { display: 'flex', gap: '14px', flexWrap: 'wrap', opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .8s ease .9s forwards' },
 
-      services,
-
-      workOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.4) 45%, rgba(5,8,12,0) 100%)' },
-      sectionWrapStyle: { padding: 'clamp(56px,7vw,96px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
-      kickerStyle: { color: gold, fontSize: '12px', letterSpacing: '0.14em', textTransform: 'uppercase', margin: '0 0 14px' },
-      workHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(30px,min(4vw,calc(37.0px + 0.63vw)),53px)', letterSpacing: '-0.015em', margin: '0 0 36px', color: softWhite },
-      workGridStyle: { display: 'grid', gridTemplateColumns: narrow ? '1fr' : (tablet ? 'repeat(2,1fr)' : 'repeat(4,1fr)'), gridAutoRows: narrow ? '200px' : '220px', gap: '14px', marginBottom: '34px' },
-      work,
-      startProjectBtnStyle: primaryBtnStyle,
+      modelsOuterStyle: { position: 'relative', background: 'linear-gradient(180deg, rgba(5,8,12,0) 0%, rgba(7,21,34,0.34) 45%, rgba(5,8,12,0) 100%)' },
+      sectionWrapStyle: { padding: 'clamp(50px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: '1720px', margin: '0 auto' },
+      filterRowStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '32px' },
+      modelsGridStyle: { display: 'grid', gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`, gap: '18px' },
+      visibleModels,
+      priceDisclaimer: data ? data.PRICE_DISCLAIMER : '',
+      priceDisclaimerStyle: { color: silver, fontSize: '11.5px', lineHeight: 1.75, maxWidth: '780px', marginTop: '34px', marginBottom: 0 },
+      disclaimerStyle: { color: mutedGray, fontSize: '11.5px', lineHeight: 1.75, maxWidth: '780px', marginTop: '14px' },
 
       ctaOuterStyle: { position: 'relative', overflow: 'hidden' },
-      ctaBgStyle: { position: 'absolute', inset: 0, backgroundImage: `url('${A('./assets/candid-team.jpg')}')`, backgroundSize: 'cover', backgroundPosition: 'center 30%', filter: 'brightness(0.3) saturate(0.68)' },
-      ctaTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.7) 42%, ${nearBlack} 100%)` },
+      ctaBgStyle: { position: 'absolute', inset: 0, backgroundImage: "url('./assets/collage/group.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 22%', filter: 'brightness(0.3) saturate(0.65)' },
+      ctaTintStyle: { position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${nearBlack} 0%, rgba(7,21,34,0.72) 42%, ${nearBlack} 100%)` },
       ctaInnerStyle: { position: 'relative', zIndex: 2, textAlign: 'center', padding: 'clamp(70px,9vw,150px) clamp(20px,6vw,80px)', maxWidth: '900px', margin: '0 auto' },
-      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(28px,min(3.8vw,calc(35.0px + 0.63vw)),51px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
+      ctaHeadlineStyle: { fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(26px,min(3.6vw,calc(33.0px + 0.63vw)),49px)', letterSpacing: '-0.015em', margin: '0 0 14px', color: softWhite },
       ctaBodyStyle: { color: silver, fontSize: '16px', lineHeight: 1.7, margin: '0 0 28px' },
 
       footerStyle: { position: 'relative', borderTop: '1px solid color-mix(in srgb, #B8BEC6 12%, transparent)', padding: 'clamp(46px,6vw,72px) clamp(20px,6vw,80px) 28px', background: 'linear-gradient(180deg, rgba(7,21,34,0.4) 0%, rgba(5,8,12,1) 60%)' },

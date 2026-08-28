@@ -1,6 +1,6 @@
 /* RiseCon site tokens — self-contained so the deployed pages need no other
    stylesheet. Values match the Nocturne design system the site was built on. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional');
 
 :root {
   --font-heading: "Inter", system-ui, sans-serif;
@@ -76,3 +76,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .lighten { mix-blend-mode: lighten; background-color: transparent; }
+
+/* — form fields (Free Estimate, Contact) — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 6px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+}
+.input {
+  width: 100%; min-height: 44px; padding: 10px 14px; font: inherit;
+  font-size: 14.5px; color: var(--color-text); caret-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-bg) 65%, var(--color-surface));
+  border: 1px solid var(--color-divider); border-radius: 3px;
+  transition: border-color .25s ease, background-color .25s ease;
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 40%, transparent); }
+.input:focus, .input:focus-visible {
+  border-color: var(--color-accent); outline: none;
+  background: color-mix(in srgb, var(--color-bg) 45%, var(--color-surface));
+}
+textarea.input { min-height: 110px; resize: vertical; line-height: 1.55; }
+select.input { appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23C99A24' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+}
+select.input option { background: #111820; color: var(--color-text); }
+.input::placeholder { color: color-mix(in srgb, var(--color-text) 38%, transparent); }
+::selection { background: color-mix(in srgb, #C99A24 30%, transparent); }

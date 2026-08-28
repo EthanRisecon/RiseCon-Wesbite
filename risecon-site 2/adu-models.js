@@ -23,7 +23,7 @@
 export const MODELS = [
   {
     slug: 'adu-240',
-    name: 'ADU 240',
+    name: 'ALPHA',
     style: 'Contemporary',
     sqft: 240,
     sqftLabel: '240 sq. ft.',
@@ -69,7 +69,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-320',
-    name: 'ADU 320',
+    name: 'BRAVO',
     style: 'Board & Batten',
     sqft: 320,
     sqftLabel: '320 sq. ft.',
@@ -114,7 +114,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-495',
-    name: 'ADU 495',
+    name: 'CHARLIE',
     style: 'Board & Batten',
     sqft: 495,
     sqftLabel: '495 sq. ft.',
@@ -158,7 +158,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-660',
-    name: 'ADU 660',
+    name: 'DELTA',
     style: 'Board & Batten',
     sqft: 660,
     sqftLabel: '660 sq. ft.',
@@ -203,7 +203,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-740',
-    name: 'ADU 740',
+    name: 'ECHO',
     style: 'Board & Batten',
     sqft: 740,
     sqftLabel: '740 sq. ft.',
@@ -247,7 +247,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-768',
-    name: 'ADU 768',
+    name: 'FOXTROT',
     style: 'Board & Batten',
     sqft: 768,
     sqftLabel: '768 sq. ft.',
@@ -294,7 +294,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-880',
-    name: 'ADU 880',
+    name: 'GOLF',
     style: 'Contemporary',
     sqft: 880,
     sqftLabel: '880 sq. ft.',
@@ -340,7 +340,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-884',
-    name: 'ADU 884',
+    name: 'HOTEL',
     style: 'Stucco & Stone',
     sqft: 884,
     sqftLabel: '884 sq. ft.',
@@ -385,7 +385,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-891',
-    name: 'ADU 891',
+    name: 'INDIA',
     style: 'Stone & Batten',
     sqft: 891,
     sqftLabel: '891 sq. ft.',
@@ -430,7 +430,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-896',
-    name: 'ADU 896',
+    name: 'JULIETT',
     style: 'Board & Batten',
     sqft: 896,
     sqftLabel: '896 sq. ft.',
@@ -475,7 +475,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-1050',
-    name: 'ADU 1050',
+    name: 'KILO',
     style: 'Board & Batten',
     sqft: 1050,
     sqftLabel: '1,050 sq. ft.',
@@ -520,7 +520,7 @@ export const MODELS = [
   },
   {
     slug: 'adu-1188',
-    name: 'ADU 1188',
+    name: 'LIMA',
     style: 'Lap Siding',
     sqft: 1188,
     sqftLabel: '1,188 sq. ft.',
@@ -565,7 +565,7 @@ export const MODELS = [
   },
   {
     slug: 'spanish-style-studio',
-    name: 'Spanish Style Studio',
+    name: 'MIKE',
     style: 'Spanish',
     sqft: null,                       // not stated on plan
     sqftLabel: 'Studio',
@@ -590,7 +590,6 @@ export const MODELS = [
     plan: './assets/plans/spanish-style-studio.png',
     image: './assets/models/spanish-style-studio-exterior.png',
     cover: './assets/models/spanish-style-studio-cover.jpg',
-    video: './assets/models/spanish-style-studio-walkthrough.mp4',
     glb: './assets/glb/spanish-style-studio.glb',
     pdf: './assets/plans/spanish-style-studio.pdf',
     planViews: [
