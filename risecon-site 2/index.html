@@ -571,9 +571,10 @@ class Component extends DCLogic {
     this._timelineObserver && this._timelineObserver.disconnect();
     this._timelineTimers && this._timelineTimers.forEach(clearTimeout);
     this._rafTimeline && cancelAnimationFrame(this._rafTimeline);
-    if (this.heroVideoEl) {
-      this.heroVideoEl.removeEventListener('canplay', this.handleVideoReady);
-      this.heroVideoEl.removeEventListener('loadeddata', this.handleVideoReady);
+    clearTimeout(this._videoFallback);
+    if (this._resumeVideo) ['touchstart', 'pointerdown', 'scroll'].forEach((ev) => window.removeEventListener(ev, this._resumeVideo));
+    if (this.heroVideoEl && this._videoEvents) {
+      this._videoEvents.forEach((ev) => this.heroVideoEl.removeEventListener(ev, this.handleVideoReady));
     }
     [this._mqNarrow, this._mqTablet, this._mqWide, this._mqMedium].forEach((mq) => {
       if (!mq) return;
@@ -589,15 +590,32 @@ class Component extends DCLogic {
     }
     this.heroVideoEl = el;
     if (!el) return;
-    el.addEventListener('canplay', this.handleVideoReady);
-    el.addEventListener('loadeddata', this.handleVideoReady);
-    if (el.readyState >= 3) this.handleVideoReady();
+    // iOS and Android only allow inline autoplay when muted + playsinline are real
+    // attributes on the element, which React's property assignment alone misses.
+    el.muted = true;
+    el.defaultMuted = true;
+    el.setAttribute('muted', '');
+    el.setAttribute('playsinline', '');
+    el.setAttribute('webkit-playsinline', '');
+    el.setAttribute('autoplay', '');
+    el.setAttribute('loop', '');
+    this._videoEvents = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough', 'playing'];
+    this._videoEvents.forEach((ev) => el.addEventListener(ev, this.handleVideoReady));
+    if (el.readyState >= 1) this.handleVideoReady();
+    // Some mobile browsers hold the first play() until the user touches the page.
+    this._resumeVideo = () => this.handleVideoReady();
+    ['touchstart', 'pointerdown', 'scroll'].forEach((ev) => window.addEventListener(ev, this._resumeVideo, { passive: true }));
+    // A data-saver connection may never reach canplay — reveal the frame anyway.
+    clearTimeout(this._videoFallback);
+    this._videoFallback = setTimeout(() => {
+      if (!this.state.videoReady) this.setState({ videoReady: true });
+    }, 2500);
   };
 
   handleVideoReady = () => {
     if (!this.state.videoReady) this.setState({ videoReady: true });
     const v = this.heroVideoEl;
-    if (v && v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+    if (v && v.paused) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
   };
 
   // Progress travels stage to stage, pausing on each activation before continuing.
@@ -1302,12 +1320,15 @@ class Component extends DCLogic {
       processSteps,
       setTimelineRef: (el) => { this.timelineEl = el; },
       timelineWrapStyle: { position: 'relative', paddingTop: '2px' },
+      // The four markers sit at the centres of a 4-column grid with an 18px gap, so
+      // each end column's centre falls 6.75px outside a naive 12.5% / 87.5%. The
+      // track is inset to match, otherwise the last circle sits off the line.
       trackBaseStyle: narrow
-        ? { position: 'absolute', left: '18px', top: '19px', bottom: '19px', width: '1px', background: 'color-mix(in srgb, #B8BEC6 16%, transparent)' }
-        : { position: 'absolute', left: '12.5%', right: '12.5%', top: '19px', height: '1px', background: 'color-mix(in srgb, #B8BEC6 16%, transparent)' },
+        ? { position: 'absolute', left: '18.5px', top: '19px', bottom: '19px', width: '1px', background: 'color-mix(in srgb, #B8BEC6 16%, transparent)' }
+        : { position: 'absolute', left: 'calc(12.5% - 6.75px)', right: 'calc(12.5% - 6.75px)', top: '19px', height: '1px', background: 'color-mix(in srgb, #B8BEC6 16%, transparent)' },
       trackActiveStyle: narrow
         ? { position: 'absolute', left: '18px', top: '19px', width: '2px', height: `calc((100% - 38px) * ${prog})`, background: `linear-gradient(180deg, ${gold}, ${brightGold})`, boxShadow: '0 0 12px rgba(201,154,36,0.4)' }
-        : { position: 'absolute', left: '12.5%', top: '19px', height: '2px', width: `${75 * prog}%`, background: `linear-gradient(90deg, ${gold}, ${brightGold})`, boxShadow: '0 0 12px rgba(201,154,36,0.4)' },
+        : { position: 'absolute', left: 'calc(12.5% - 6.75px)', top: '19px', height: '2px', width: `calc((75% + 13.5px) * ${prog})`, background: `linear-gradient(90deg, ${gold}, ${brightGold})`, boxShadow: '0 0 12px rgba(201,154,36,0.4)' },
       trackLeadStyle: {
         position: 'absolute',
         ...(narrow

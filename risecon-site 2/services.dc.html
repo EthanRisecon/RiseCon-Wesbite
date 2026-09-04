@@ -115,7 +115,7 @@
       <h2 style="{{ workHeadlineStyle }}">See The Work</h2>
       <div style="{{ workGridStyle }}" data-reveal="work-grid">
         <sc-for list="{{ work }}" as="tile" hint-placeholder-count="5">
-          <div onMouseEnter="{{ tile.onEnter }}" onMouseLeave="{{ tile.onLeave }}" style="{{ tile.wrapStyle }}">
+          <div style="{{ tile.wrapStyle }}">
             <!-- Real RiseCon project photography -->
             <div role="img" aria-label="{{ tile.label }}" style="{{ tile.imgStyle }}"></div>
             <div style="{{ tile.scrimStyle }}"></div>
@@ -331,24 +331,21 @@ class Component extends DCLogic {
       { label: 'ADU Bath — Completed', img: A('./assets/completed/adu-bath.jpg'), span: 'small' },
       { label: 'ADU Bedroom — Completed', img: A('./assets/completed/adu-bedroom.jpg'), span: 'small' },
       { label: 'Residential Construction — Placer County', img: A('./assets/jobsite-team.jpg'), span: 'small' }
-    ].map((t, i) => {
-      const hov = this.state.hoveredTile === i;
-      return {
-        ...t,
-        onEnter: () => this.setState({ hoveredTile: i }),
-        onLeave: () => this.setState({ hoveredTile: null }),
-        wrapStyle: {
-          position: 'relative', overflow: 'hidden', borderRadius: '3px',
-          gridColumn: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
-          gridRow: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
-          minHeight: narrow ? '200px' : (t.span === 'large' ? '100%' : '220px'),
-          ...fadeUp('work-grid', 0.05 + i * 0.09, 22)
-        },
-        imgStyle: { position: 'absolute', inset: 0, backgroundImage: `url(${t.img})`, backgroundSize: 'cover', backgroundPosition: 'center', transform: hov ? 'scale(1.06)' : 'scale(1)', transition: `transform .9s ${ease}` },
-        scrimStyle: { position: 'absolute', inset: 0, background: hov ? 'linear-gradient(180deg, rgba(5,8,12,0.12) 35%, rgba(5,8,12,0.85) 100%)' : 'linear-gradient(180deg, rgba(5,8,12,0.06) 45%, rgba(5,8,12,0.7) 100%)', transition: 'background .45s ease' },
-        labelStyle: { position: 'absolute', left: '18px', bottom: '16px', right: '18px', fontSize: '12.5px', letterSpacing: '0.06em', color: hov ? brightGold : softWhite, fontWeight: 600, transition: 'color .3s ease', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }
-      };
-    });
+    ].map((t, i) => ({
+      // A gallery, not a portfolio index: nothing here opens, so nothing here
+      // behaves as though it might — no pointer cursor, no hover motion.
+      ...t,
+      wrapStyle: {
+        position: 'relative', overflow: 'hidden', borderRadius: '3px', cursor: 'default',
+        gridColumn: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
+        gridRow: !narrow && t.span === 'large' ? 'span 2' : 'span 1',
+        minHeight: narrow ? '200px' : (t.span === 'large' ? '100%' : '220px'),
+        ...fadeUp('work-grid', 0.05 + i * 0.09, 22)
+      },
+      imgStyle: { position: 'absolute', inset: 0, backgroundImage: `url(${t.img})`, backgroundSize: 'cover', backgroundPosition: 'center' },
+      scrimStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,12,0.06) 45%, rgba(5,8,12,0.7) 100%)' },
+      labelStyle: { position: 'absolute', left: '18px', bottom: '16px', right: '18px', fontSize: '12.5px', letterSpacing: '0.06em', color: softWhite, fontWeight: 600, textShadow: '0 1px 4px rgba(0,0,0,0.8)' }
+    }));
 
     // The active menu item follows the file being viewed, so no page has to declare it.
     const path = decodeURIComponent(location.pathname);

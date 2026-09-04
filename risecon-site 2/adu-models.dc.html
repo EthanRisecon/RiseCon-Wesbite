@@ -95,9 +95,9 @@
             <div style="{{ model.mediaStyle }}">
               <div role="img" aria-label="{{ model.mediaAlt }}" style="{{ model.mediaImgStyle }}"></div>
               <sc-if value="{{ model.showPreview }}" hint-placeholder-val="{{ false }}">
-                <div style="{{ model.previewWrapStyle }}" aria-hidden="true">
-                  <model-viewer src="{{ model.glb }}" poster="{{ model.cover }}" alt="{{ model.previewAlt }}" camera-orbit="0deg 12deg auto" min-camera-orbit="auto 6deg auto" max-camera-orbit="auto 26deg auto" environment-image="./assets/env/architectural-daylight.png" tone-mapping="neutral" exposure="1.12" shadow-intensity="0.35" shadow-softness="1" auto-rotate auto-rotate-delay="0" rotation-per-second="7deg" interaction-prompt="none" disable-zoom disable-tap disable-pan loading="eager" ref="{{ model.previewRef }}"></model-viewer>
-                </div>
+                <!-- The viewer is built in the logic class, not here: a src written as
+                     a template hole is fetched verbatim during the placeholder phase. -->
+                <div ref="{{ model.setPreviewRef }}" style="{{ model.previewWrapStyle }}" aria-hidden="true"></div>
               </sc-if>
               <div style="{{ model.planFadeStyle }}"></div>
               <sc-if value="{{ model.noImage }}" hint-placeholder-val="{{ true }}">
@@ -272,7 +272,40 @@ class Component extends DCLogic {
           glb: m.glb,
           cover: m.cover || m.image,
           showPreview,
-          previewAlt: `Aerial 3D floor plan of ${m.name}`,
+          // Built here rather than in the template so no request can fire for an
+          // unresolved src while the placeholder phase is still painting.
+          setPreviewRef: (el) => {
+            if (!el) return;
+            if (!showPreview || !m.glb) { el.replaceChildren(); return; }
+            if (el.firstChild) return;
+            const mv = document.createElement('model-viewer');
+            const attrs = {
+              src: m.glb,
+              poster: m.cover || m.image || '',
+              alt: `Aerial 3D floor plan of ${m.name}`,
+              'camera-orbit': '0deg 12deg auto',
+              'min-camera-orbit': 'auto 6deg auto',
+              'max-camera-orbit': 'auto 26deg auto',
+              'environment-image': './assets/env/architectural-daylight.png',
+              'tone-mapping': 'neutral',
+              exposure: '1.12',
+              'shadow-intensity': '0.35',
+              'shadow-softness': '1',
+              'auto-rotate': '',
+              'auto-rotate-delay': '0',
+              'rotation-per-second': '7deg',
+              'interaction-prompt': 'none',
+              'disable-zoom': '',
+              'disable-tap': '',
+              'disable-pan': '',
+              loading: 'eager'
+            };
+            Object.entries(attrs).forEach(([k, v]) => mv.setAttribute(k, v));
+            mv.style.width = '100%';
+            mv.style.height = '100%';
+            mv.style.display = 'block';
+            el.appendChild(mv);
+          },
           // The exterior render doubles as the viewer's poster, so the card
           // cross-fades straight into the aerial model with no dark gap.
           previewWrapStyle: {

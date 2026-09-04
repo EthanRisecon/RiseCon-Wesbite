@@ -305,6 +305,8 @@ class Component extends DCLogic {
 
   componentDidMount() {
     import('./adu-models.js').then((m) => this.setState({ data: m }));
+    // Warm the PDF rasteriser up front — it is the slow half of a first plan view.
+    import('./plan-render.js').catch(() => {});
     this._onScroll = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     this._onKey = (e) => {
       if (e.key !== 'Escape') return;
@@ -387,11 +389,11 @@ class Component extends DCLogic {
     if (this._requested[key]) return;
     this._requested[key] = true;
     const views = (m.planViews || []).filter((v) => v.page === pageNum);
-    if (!views.length) return;
+    if (!views.length) { this._requested[key] = false; return; }
     import('./plan-render.js')
       .then((mod) => mod.renderViews(m.pdf, pageNum, views))
       .then((urls) => this.setState((s) => ({ planUrls: { ...s.planUrls, ...urls } })))
-      .catch(() => {});
+      .catch(() => { this._requested[key] = false; });
   }
 
   // Straight-from-vectors re-render of the one view being inspected. Two tiers,
@@ -411,10 +413,12 @@ class Component extends DCLogic {
   _pump() {
     const vs = this.views();
     if (!vs.length) return;
-    if (!this.state.plansSeen && !this.state.expanded) return;
     const av = this.activeViewDef();
     if (!av) return;
+    // The sheet is rasterised as soon as the model data resolves, so the first
+    // tab click paints immediately instead of starting the work.
     this._requestPage(av.page);
+    if (!this.state.plansSeen && !this.state.expanded) return;
     if (this.state.zoom >= 1.5 && this.state.planUrls[av.id]) this._requestDetail(av, 'hi');
     if (this.state.zoom >= 3 && this.state.planUrls[av.id + '@hi']) this._requestDetail(av, 'ultra');
   }
@@ -752,7 +756,7 @@ class Component extends DCLogic {
       metaDotStyle: { width: '4px', height: '4px', borderRadius: '50%', background: 'color-mix(in srgb, #B8BEC6 40%, transparent)' },
       metaSecondaryStyle: { fontFamily: 'var(--font-heading)', fontSize: 'clamp(16px,1.7vw,20px)', fontWeight: 500, color: softWhite, letterSpacing: '0.01em' },
       priceLabel: data ? data.priceLabel(model) : '',
-      priceBasis: (data && model.sqft) ? data.PRICE_BASIS : '',
+      priceBasis: (data && data.startingPrice(model)) ? data.PRICE_BASIS : '',
       priceBlockStyle: {
         display: 'flex', flexDirection: 'column', gap: '5px', margin: '0 0 20px',
         opacity: reducedMotion ? 1 : 0, animation: reducedMotion ? 'none' : 'riseFadeUp .75s ease .48s forwards'
